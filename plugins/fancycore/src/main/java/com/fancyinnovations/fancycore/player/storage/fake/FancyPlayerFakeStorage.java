@@ -3,6 +3,8 @@ package com.fancyinnovations.fancycore.player.storage.fake;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerStorage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,6 +25,11 @@ public class FancyPlayerFakeStorage implements FancyPlayerStorage {
     @Override
     public FancyPlayer loadPlayer(UUID uuid) {
         return players.get(uuid);
+    }
+
+    @Override
+    public List<FancyPlayer> loadAllPlayers() {
+        return new ArrayList<>(players.values());
     }
 
     @Override

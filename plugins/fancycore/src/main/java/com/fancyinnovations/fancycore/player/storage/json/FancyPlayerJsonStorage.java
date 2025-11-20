@@ -10,6 +10,7 @@ import de.oliver.jdb.JDB;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 public class FancyPlayerJsonStorage implements FancyPlayerStorage {
@@ -54,6 +55,23 @@ public class FancyPlayerJsonStorage implements FancyPlayerStorage {
             );
         }
         return null;
+    }
+
+    @Override
+    public List<FancyPlayer> loadAllPlayers() {
+        try {
+            List<JsonFancyPlayer> all = jdb.getAll("", JsonFancyPlayer.class);
+            return all.stream()
+                    .map(JsonFancyPlayer::toFancyPlayer)
+                    .map(fpImpl -> (FancyPlayer) fpImpl)
+                    .toList();
+        } catch (IOException e) {
+            FancyCorePlugin.get().getFancyLogger().error(
+                    "Failed to load all FancyPlayers",
+                    ThrowableProperty.of(e)
+            );
+        }
+        return List.of();
     }
 
     @Override
