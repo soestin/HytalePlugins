@@ -28,6 +28,16 @@ public class FancyPlayerFakeStorage implements FancyPlayerStorage {
     }
 
     @Override
+    public FancyPlayer loadPlayerByUsername(String username) {
+        for (FancyPlayer player : players.values()) {
+            if (player.getUsername().equalsIgnoreCase(username)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<FancyPlayer> loadAllPlayers() {
         return new ArrayList<>(players.values());
     }

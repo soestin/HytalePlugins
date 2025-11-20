@@ -8,6 +8,7 @@ public interface FancyPlayerStorage {
     void savePlayer(FancyPlayer player);
 
     FancyPlayer loadPlayer(UUID uuid);
+    FancyPlayer loadPlayerByUsername(String username);
     List<FancyPlayer> loadAllPlayers();
 
     void deletePlayer(UUID uuid);

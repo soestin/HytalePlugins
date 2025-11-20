@@ -27,9 +27,7 @@ public class FancyPlayerServiceImpl implements FancyPlayerService {
             return cache.get(uuid);
         }
 
-        FancyPlayer fancyPlayer = tryToGetFromStorage(uuid);
-
-        return null;
+        return tryToGetFromStorage(uuid);
     }
 
     @Override
@@ -40,7 +38,7 @@ public class FancyPlayerServiceImpl implements FancyPlayerService {
             }
         }
 
-        return null;
+        return tryToGetFromStorage(username);
     }
 
     @Override
@@ -63,19 +61,13 @@ public class FancyPlayerServiceImpl implements FancyPlayerService {
     }
 
     public FancyPlayer tryToGetFromStorage(String username) {
-        List<FancyPlayer> fancyPlayers = storage.loadAllPlayers();
-
-        FancyPlayer found = null;
-        for (FancyPlayer fp : fancyPlayers) {
-            cache.put(fp.getUUID(), fp);
-
-            if (fp.getUsername().equalsIgnoreCase(username)) {
-                found = fp;
-            }
+        try {
+            FancyPlayer fancyPlayer = storage.loadPlayerByUsername(username);
+            addPlayerToCache(fancyPlayer);
+            return fancyPlayer;
+        } catch (Exception e) {
+            return null;
         }
-
-
-        return found;
     }
 
     public void removePlayerFromCache(UUID uuid) {

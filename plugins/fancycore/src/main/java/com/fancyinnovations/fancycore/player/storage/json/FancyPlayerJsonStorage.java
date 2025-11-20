@@ -30,7 +30,7 @@ public class FancyPlayerJsonStorage implements FancyPlayerStorage {
 
         JsonFancyPlayer jsonFancyPlayer = JsonFancyPlayer.from(fpImpl);
         try {
-            jdb.set(fpImpl.getUUID().toString(), jsonFancyPlayer);
+            jdb.set(fpImpl.getUUID().toString(), "/by-username/" + fpImpl.getUsername());
         } catch (IOException e) {
             FancyCorePlugin.get().getFancyLogger().error(
                     "Failed to save FancyPlayer",
@@ -47,8 +47,26 @@ public class FancyPlayerJsonStorage implements FancyPlayerStorage {
             return jsonFancyPlayer.toFancyPlayer();
         } catch (IOException e) {
             FancyCorePlugin.get().getFancyLogger().error(
-                    "Failed to load FancyPlayer",
+                    "Failed to load FancyPlayer by UUID",
                     StringProperty.of("uuid", uuid.toString()),
+                    ThrowableProperty.of(e)
+            );
+        }
+        return null;
+    }
+
+    @Override
+    public FancyPlayer loadPlayerByUsername(String username) {
+        try {
+            String uuidStr = jdb.get("/by-username/" + username, String.class);
+            if (uuidStr == null) {
+                return null;
+            }
+            return loadPlayer(UUID.fromString(uuidStr));
+        } catch (IOException e) {
+            FancyCorePlugin.get().getFancyLogger().error(
+                    "Failed to load FancyPlayer by username",
+                    StringProperty.of("username", username),
                     ThrowableProperty.of(e)
             );
         }
