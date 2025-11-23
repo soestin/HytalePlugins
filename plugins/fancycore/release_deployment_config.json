@@ -9,7 +9,7 @@
   ],
   "channel": "RELEASE",
   "loaders": [
-    "hytale",
+    "hytale"
   ],
   "featured": true
 }
