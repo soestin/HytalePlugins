@@ -5,6 +5,7 @@ import com.fancyinnovations.fancycore.api.punishments.Punishment;
 import com.fancyinnovations.fancycore.api.punishments.PunishmentService;
 import com.fancyinnovations.fancycore.api.punishments.PunishmentStorage;
 import com.fancyinnovations.fancycore.api.punishments.PunishmentType;
+import com.fancyinnovations.fancycore.api.punishments.events.PlayerPunishedEvent;
 import com.fancyinnovations.fancycore.main.FancyCorePlugin;
 import com.fancyinnovations.fancycore.punishments.PunishmentImpl;
 
@@ -31,6 +32,12 @@ public class PunishmentServiceImpl implements PunishmentService {
                 -1
         );
 
+        PlayerPunishedEvent playerPunishedEvent = new PlayerPunishedEvent(player, punishment);
+        playerPunishedEvent.fire();
+        if (playerPunishedEvent.isCancelled()) {
+            return null;
+        }
+
         storage.createPunishment(punishment);
 
         // TODO: Notify player about the warning
@@ -51,6 +58,12 @@ public class PunishmentServiceImpl implements PunishmentService {
                 staff.getUUID(),
                 expiresAt
         );
+
+        PlayerPunishedEvent playerPunishedEvent = new PlayerPunishedEvent(player, punishment);
+        playerPunishedEvent.fire();
+        if (playerPunishedEvent.isCancelled()) {
+            return null;
+        }
 
         storage.createPunishment(punishment);
 
@@ -76,6 +89,12 @@ public class PunishmentServiceImpl implements PunishmentService {
                 -1
         );
 
+        PlayerPunishedEvent playerPunishedEvent = new PlayerPunishedEvent(player, punishment);
+        playerPunishedEvent.fire();
+        if (playerPunishedEvent.isCancelled()) {
+            return null;
+        }
+
         storage.createPunishment(punishment);
 
         // TODO: Kick the player from the server with a message
@@ -96,6 +115,12 @@ public class PunishmentServiceImpl implements PunishmentService {
                 staff.getUUID(),
                 expiresAt
         );
+
+        PlayerPunishedEvent playerPunishedEvent = new PlayerPunishedEvent(player, punishment);
+        playerPunishedEvent.fire();
+        if (playerPunishedEvent.isCancelled()) {
+            return null;
+        }
 
         storage.createPunishment(punishment);
 
