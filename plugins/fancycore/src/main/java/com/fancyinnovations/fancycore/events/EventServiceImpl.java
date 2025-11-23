@@ -35,7 +35,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void registerListener(Class<? extends FancyEvent> event, EventListener<?> listener) {
+    public <T extends FancyEvent> void registerListener(Class<T> event, EventListener<T> listener) {
         if (this.listeners.containsKey(event)) {
             this.listeners.get(event).add(listener);
         } else {

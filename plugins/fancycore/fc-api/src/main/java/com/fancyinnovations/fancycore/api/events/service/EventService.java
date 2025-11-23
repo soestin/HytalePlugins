@@ -23,6 +23,6 @@ public interface EventService {
      * @param event    the event class to listen for
      * @param listener the listener to register
      */
-    void registerListener(Class<? extends FancyEvent> event, EventListener<?> listener);
+    <T extends FancyEvent> void registerListener(Class<T> event, EventListener<T> listener);
 
 }
