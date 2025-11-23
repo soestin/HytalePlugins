@@ -16,6 +16,7 @@ import com.fancyinnovations.fancycore.player.storage.SavePlayersRunnable;
 import com.fancyinnovations.fancycore.player.storage.json.FancyPlayerJsonStorage;
 import com.fancyinnovations.fancycore.punishments.service.PunishmentServiceImpl;
 import com.fancyinnovations.fancycore.punishments.storage.json.PunishmentJsonStorage;
+import com.fancyinnovations.fancycore.translations.TranslationService;
 import de.oliver.fancyanalytics.logger.ExtendedFancyLogger;
 import de.oliver.fancyanalytics.logger.LogLevel;
 import de.oliver.fancyanalytics.logger.appender.Appender;
@@ -41,6 +42,8 @@ public class FancyCorePlugin implements FancyCore {
     private final PluginMetrics pluginMetrics;
 
     private final EventService eventService;
+
+    private final TranslationService translationService;
 
     private final FancyPlayerStorage playerStorage;
     private final FancyPlayerService playerService;
@@ -84,6 +87,8 @@ public class FancyCorePlugin implements FancyCore {
         pluginMetrics = new PluginMetrics();
 
         eventService = new EventServiceImpl();
+
+        translationService = new TranslationService();
 
         playerStorage = new FancyPlayerJsonStorage();
         playerService = new FancyPlayerServiceImpl();
@@ -151,6 +156,10 @@ public class FancyCorePlugin implements FancyCore {
     @Override
     public EventService getEventService() {
         return eventService;
+    }
+
+    public TranslationService getTranslationService() {
+        return translationService;
     }
 
     @Override

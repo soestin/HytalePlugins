@@ -134,4 +134,15 @@ public class FancyPlayerImpl implements FancyPlayer {
     public void setDirty(boolean dirty) {
         isDirty = dirty;
     }
+
+    @Override
+    public boolean isOnline() {
+        // TODO: Implement online status check
+        return true;
+    }
+
+    @Override
+    public void sendMessage(String message) {
+        // TODO: Implement message sending logic
+    }
 }

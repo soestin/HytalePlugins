@@ -27,4 +27,9 @@ public interface FancyPlayer {
     boolean isDirty();
     void setDirty(boolean dirty);
 
+
+    boolean isOnline();
+
+    void sendMessage(String message);
+
 }
