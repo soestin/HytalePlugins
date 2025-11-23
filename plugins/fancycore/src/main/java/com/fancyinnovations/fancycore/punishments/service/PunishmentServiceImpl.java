@@ -32,9 +32,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                 -1
         );
 
-        PlayerPunishedEvent playerPunishedEvent = new PlayerPunishedEvent(player, punishment);
-        playerPunishedEvent.fire();
-        if (playerPunishedEvent.isCancelled()) {
+        if (new PlayerPunishedEvent(player, punishment).fire()) {
             return null;
         }
 
@@ -59,9 +57,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                 expiresAt
         );
 
-        PlayerPunishedEvent playerPunishedEvent = new PlayerPunishedEvent(player, punishment);
-        playerPunishedEvent.fire();
-        if (playerPunishedEvent.isCancelled()) {
+        if (new PlayerPunishedEvent(player, punishment).fire()) {
             return null;
         }
 
@@ -89,9 +85,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                 -1
         );
 
-        PlayerPunishedEvent playerPunishedEvent = new PlayerPunishedEvent(player, punishment);
-        playerPunishedEvent.fire();
-        if (playerPunishedEvent.isCancelled()) {
+        if (new PlayerPunishedEvent(player, punishment).fire()) {
             return null;
         }
 
@@ -116,9 +110,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                 expiresAt
         );
 
-        PlayerPunishedEvent playerPunishedEvent = new PlayerPunishedEvent(player, punishment);
-        playerPunishedEvent.fire();
-        if (playerPunishedEvent.isCancelled()) {
+        if (new PlayerPunishedEvent(player, punishment).fire()) {
             return null;
         }
 
