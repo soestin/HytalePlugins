@@ -75,8 +75,7 @@ public class FancyPlayerImpl implements FancyPlayer {
 
     @Override
     public boolean isOnline() {
-        // TODO: Implement online status check
-        return true;
+        return player != null;
     }
 
     @Override
