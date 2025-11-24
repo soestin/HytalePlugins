@@ -143,7 +143,6 @@ public class PunishmentServiceImpl implements PunishmentService {
 
         storage.createPunishment(punishment);
 
-        // TODO: Kick the player from the server with a message
         String kickMessage = translator.getMessage("punishments.kick.default_reason")
                 .replace("{reason}", reason)
                 .getParsedMessage();
@@ -152,6 +151,8 @@ public class PunishmentServiceImpl implements PunishmentService {
                 .replace("{player}", player.getData().getUsername())
                 .replace("{reason}", reason)
                 .sendTo(staff);
+
+        player.getPlayer().kick(kickMessage);
 
         return punishment;
     }
@@ -176,7 +177,6 @@ public class PunishmentServiceImpl implements PunishmentService {
 
         storage.createPunishment(punishment);
 
-        // TODO: Kick the player from the server with a ban message
         String kickMessage;
         if (durationMillis > 0) {
             kickMessage = translator.getMessage("punishments.ban.temp.default_reason")
@@ -199,6 +199,8 @@ public class PunishmentServiceImpl implements PunishmentService {
                     .replace("{reason}", reason)
                     .sendTo(staff);
         }
+
+        player.getPlayer().kick(kickMessage);
 
         return punishment;
     }
