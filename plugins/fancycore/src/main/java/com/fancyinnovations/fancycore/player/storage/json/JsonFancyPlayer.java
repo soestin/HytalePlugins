@@ -1,7 +1,8 @@
 package com.fancyinnovations.fancycore.player.storage.json;
 
 import com.fancyinnovations.fancycore.api.permissions.Permission;
-import com.fancyinnovations.fancycore.player.FancyPlayerImpl;
+import com.fancyinnovations.fancycore.api.player.FancyPlayerData;
+import com.fancyinnovations.fancycore.player.FancyPlayerDataImpl;
 import com.google.gson.annotations.SerializedName;
 
 import java.awt.*;
@@ -24,7 +25,7 @@ public record JsonFancyPlayer(
     /**
      * Converts a FancyPlayerImpl to a JsonFancyPlayer
      */
-    public static JsonFancyPlayer from(FancyPlayerImpl player) {
+    public static JsonFancyPlayer from(FancyPlayerData player) {
         List<JsonPermission> permissions = new ArrayList<>();
         for (var perm : player.getPermissions()) {
             permissions.add(JsonPermission.from(perm));
@@ -51,7 +52,7 @@ public record JsonFancyPlayer(
     /**
      * Converts this JsonFancyPlayer to a FancyPlayerImpl
      */
-    public FancyPlayerImpl toFancyPlayer() {
+    public FancyPlayerData toFancyPlayer() {
         List<Permission> perms = new ArrayList<>();
         for (JsonPermission jsonPerm : permissions) {
             perms.add(jsonPerm.toPermission());
@@ -62,7 +63,7 @@ public record JsonFancyPlayer(
             groups.add(UUID.fromString(groupID));
         }
 
-        return new FancyPlayerImpl(
+        return new FancyPlayerDataImpl(
                 UUID.fromString(uuid),
                 username,
                 perms,

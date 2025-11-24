@@ -1,6 +1,6 @@
 package com.fancyinnovations.fancycore.player.storage.fake;
 
-import com.fancyinnovations.fancycore.api.player.FancyPlayer;
+import com.fancyinnovations.fancycore.api.player.FancyPlayerData;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerStorage;
 
 import java.util.ArrayList;
@@ -11,34 +11,34 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FancyPlayerFakeStorage implements FancyPlayerStorage {
 
-    private final Map<UUID, FancyPlayer> players;
+    private final Map<UUID, FancyPlayerData> players;
 
     public FancyPlayerFakeStorage() {
         players = new ConcurrentHashMap<>();
     }
 
     @Override
-    public void savePlayer(FancyPlayer player) {
+    public void savePlayer(FancyPlayerData player) {
         players.put(player.getUUID(), player);
     }
 
     @Override
-    public FancyPlayer loadPlayer(UUID uuid) {
+    public FancyPlayerData loadPlayer(UUID uuid) {
         return players.get(uuid);
     }
 
     @Override
-    public FancyPlayer loadPlayerByUsername(String username) {
-        for (FancyPlayer player : players.values()) {
-            if (player.getUsername().equalsIgnoreCase(username)) {
-                return player;
+    public FancyPlayerData loadPlayerByUsername(String username) {
+        for (FancyPlayerData playerData : players.values()) {
+            if (playerData.getUsername().equalsIgnoreCase(username)) {
+                return playerData;
             }
         }
         return null;
     }
 
     @Override
-    public List<FancyPlayer> loadAllPlayers() {
+    public List<FancyPlayerData> loadAllPlayers() {
         return new ArrayList<>(players.values());
     }
 

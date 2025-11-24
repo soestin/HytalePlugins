@@ -1,9 +1,9 @@
 package com.fancyinnovations.fancycore.player.storage.json;
 
-import com.fancyinnovations.fancycore.api.player.FancyPlayer;
+import com.fancyinnovations.fancycore.api.player.FancyPlayerData;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerStorage;
 import com.fancyinnovations.fancycore.main.FancyCorePlugin;
-import com.fancyinnovations.fancycore.player.FancyPlayerImpl;
+import com.fancyinnovations.fancycore.player.FancyPlayerDataImpl;
 import de.oliver.fancyanalytics.logger.properties.StringProperty;
 import de.oliver.fancyanalytics.logger.properties.ThrowableProperty;
 import de.oliver.jdb.JDB;
@@ -22,8 +22,8 @@ public class FancyPlayerJsonStorage implements FancyPlayerStorage {
     }
 
     @Override
-    public void savePlayer(FancyPlayer player) {
-        if (!(player instanceof FancyPlayerImpl fpImpl)) {
+    public void savePlayer(FancyPlayerData player) {
+        if (!(player instanceof FancyPlayerDataImpl fpImpl)) {
             FancyCorePlugin.get().getFancyLogger().warn("Only real player objects can be saved");
             return;
         }
@@ -41,7 +41,7 @@ public class FancyPlayerJsonStorage implements FancyPlayerStorage {
     }
 
     @Override
-    public FancyPlayer loadPlayer(UUID uuid) {
+    public FancyPlayerData loadPlayer(UUID uuid) {
         try {
             JsonFancyPlayer jsonFancyPlayer = jdb.get(uuid.toString(), JsonFancyPlayer.class);
             return jsonFancyPlayer.toFancyPlayer();
@@ -56,7 +56,7 @@ public class FancyPlayerJsonStorage implements FancyPlayerStorage {
     }
 
     @Override
-    public FancyPlayer loadPlayerByUsername(String username) {
+    public FancyPlayerData loadPlayerByUsername(String username) {
         try {
             String uuidStr = jdb.get("/by-username/" + username, String.class);
             if (uuidStr == null) {
@@ -74,12 +74,12 @@ public class FancyPlayerJsonStorage implements FancyPlayerStorage {
     }
 
     @Override
-    public List<FancyPlayer> loadAllPlayers() {
+    public List<FancyPlayerData> loadAllPlayers() {
         try {
             List<JsonFancyPlayer> all = jdb.getAll("", JsonFancyPlayer.class);
             return all.stream()
                     .map(JsonFancyPlayer::toFancyPlayer)
-                    .map(fpImpl -> (FancyPlayer) fpImpl)
+                    .map(fpImpl -> (FancyPlayerData) fpImpl)
                     .toList();
         } catch (IOException e) {
             FancyCorePlugin.get().getFancyLogger().error(

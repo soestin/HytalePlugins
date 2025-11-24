@@ -1,47 +1,20 @@
 package com.fancyinnovations.fancycore.api.player;
 
-import com.fancyinnovations.fancycore.api.permissions.Permission;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
-import java.util.List;
 import java.util.UUID;
 
 public interface FancyPlayer {
 
-    UUID getUUID();
-    String getUsername();
+    FancyPlayerData getData();
 
-    List<Permission> getPermissions();
-    void setPermissions(List<Permission> permissions);
-    void setPermission(String permission, boolean enabled);
-    void removePermission(String permission);
+    @Nullable FakeHytalePlayer getPlayer();
+    @ApiStatus.Internal void setPlayer(@NotNull FakeHytalePlayer player);
+
     boolean checkPermission(String permission);
-
-    List<UUID> getGroups();
-    void setGroups(List<UUID> groups);
-    void addGroup(UUID group);
-    void removeGroup(UUID group);
     boolean isInGroup(UUID group);
-
-    String getNickname();
-    void setNickname(String nickname);
-
-    Color getChatColor();
-    void setChatColor(Color chatColor);
-
-    double getBalance();
-    void setBalance(double balance);
-    void addBalance(double balance);
-    void removeBalance(double balance);
-
-    long getFirstLoginTime();
-
-    long getPlayTime();
-    void addPlayTime(long playTime);
-
-    boolean isDirty();
-    void setDirty(boolean dirty);
-
 
     boolean isOnline();
 

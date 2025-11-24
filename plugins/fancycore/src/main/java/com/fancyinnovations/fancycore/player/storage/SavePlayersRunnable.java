@@ -29,9 +29,9 @@ public class SavePlayersRunnable implements Runnable{
 
             List<FancyPlayer> all = service.getAll();
             for (FancyPlayer fp : all) {
-                if (fp.isDirty()) {
-                    storage.savePlayer(fp);
-                    fp.setDirty(false);
+                if (fp.getData().isDirty()) {
+                    storage.savePlayer(fp.getData());
+                    fp.getData().setDirty(false);
                 }
             }
 

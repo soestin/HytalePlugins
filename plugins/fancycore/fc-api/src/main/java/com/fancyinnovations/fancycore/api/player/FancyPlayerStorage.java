@@ -5,11 +5,11 @@ import java.util.UUID;
 
 public interface FancyPlayerStorage {
 
-    void savePlayer(FancyPlayer player);
+    void savePlayer(FancyPlayerData player);
 
-    FancyPlayer loadPlayer(UUID uuid);
-    FancyPlayer loadPlayerByUsername(String username);
-    List<FancyPlayer> loadAllPlayers();
+    FancyPlayerData loadPlayer(UUID uuid);
+    FancyPlayerData loadPlayerByUsername(String username);
+    List<FancyPlayerData> loadAllPlayers();
 
     void deletePlayer(UUID uuid);
 

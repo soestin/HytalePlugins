@@ -49,11 +49,11 @@ public class PunishmentServiceImpl implements PunishmentService {
     public Punishment warnPlayer(FancyPlayer player, FancyPlayer staff, String reason) {
         Punishment punishment = new PunishmentImpl(
                 UUID.randomUUID(),
-                player.getUUID(),
+                player.getData().getUUID(),
                 PunishmentType.WARNING,
                 reason,
                 System.currentTimeMillis(),
-                staff.getUUID(),
+                staff.getData().getUUID(),
                 -1
         );
 
@@ -68,7 +68,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                 .sendTo(player);
 
         translator.getMessage("punishments.warning.success")
-                .replace("{player}", player.getUsername())
+                .replace("{player}", player.getData().getUsername())
                 .replace("{reason}", reason)
                 .sendTo(staff);
 
@@ -81,11 +81,11 @@ public class PunishmentServiceImpl implements PunishmentService {
 
         Punishment punishment = new PunishmentImpl(
                 UUID.randomUUID(),
-                player.getUUID(),
+                player.getData().getUUID(),
                 PunishmentType.MUTE,
                 reason,
                 System.currentTimeMillis(),
-                staff.getUUID(),
+                staff.getData().getUUID(),
                 expiresAt
         );
 
@@ -102,7 +102,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                     .sendTo(player);
 
             translator.getMessage("punishments.mute.temp.success")
-                    .replace("{player}", player.getUsername())
+                    .replace("{player}", player.getData().getUsername())
                     .replace("{reason}", reason)
                     .replace("{duration}", String.valueOf(durationMillis / 1000) + " seconds")
                     .sendTo(staff);
@@ -112,7 +112,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                     .sendTo(player);
 
             translator.getMessage("punishments.mute.perm.success")
-                    .replace("{player}", player.getUsername())
+                    .replace("{player}", player.getData().getUsername())
                     .replace("{reason}", reason)
                     .sendTo(staff);
         }
@@ -129,11 +129,11 @@ public class PunishmentServiceImpl implements PunishmentService {
     public Punishment kickPlayer(FancyPlayer player, FancyPlayer staff, String reason) {
         Punishment punishment = new PunishmentImpl(
                 UUID.randomUUID(),
-                player.getUUID(),
+                player.getData().getUUID(),
                 PunishmentType.KICK,
                 reason,
                 System.currentTimeMillis(),
-                staff.getUUID(),
+                staff.getData().getUUID(),
                 -1
         );
 
@@ -149,7 +149,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                 .getParsedMessage();
 
         translator.getMessage("punishments.kick.success")
-                .replace("{player}", player.getUsername())
+                .replace("{player}", player.getData().getUsername())
                 .replace("{reason}", reason)
                 .sendTo(staff);
 
@@ -162,11 +162,11 @@ public class PunishmentServiceImpl implements PunishmentService {
 
         Punishment punishment = new PunishmentImpl(
                 UUID.randomUUID(),
-                player.getUUID(),
+                player.getData().getUUID(),
                 PunishmentType.BAN,
                 reason,
                 System.currentTimeMillis(),
-                staff.getUUID(),
+                staff.getData().getUUID(),
                 expiresAt
         );
 
@@ -185,7 +185,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                     .getParsedMessage();
 
             translator.getMessage("punishments.ban.temp.success")
-                    .replace("{player}", player.getUsername())
+                    .replace("{player}", player.getData().getUsername())
                     .replace("{reason}", reason)
                     .replace("{duration}", String.valueOf(durationMillis / 1000) + " seconds")
                     .sendTo(staff);
@@ -195,7 +195,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                     .getParsedMessage();
 
             translator.getMessage("punishments.ban.perm.success")
-                    .replace("{player}", player.getUsername())
+                    .replace("{player}", player.getData().getUsername())
                     .replace("{reason}", reason)
                     .sendTo(staff);
         }
@@ -210,7 +210,7 @@ public class PunishmentServiceImpl implements PunishmentService {
 
     @Override
     public List<Punishment> getPunishmentsForPlayer(FancyPlayer player) {
-        return storage.getPunishmentsForPlayer(player.getUUID());
+        return storage.getPunishmentsForPlayer(player.getData().getUUID());
     }
 
     @Override
@@ -229,7 +229,7 @@ public class PunishmentServiceImpl implements PunishmentService {
         storage.createReport(report);
 
         translator.getMessage("punishments.report.successfully_reported")
-                .replace("{reported}", reported.getUsername())
+                .replace("{reported}", reported.getData().getUsername())
                 .replace("{reason}", reason)
                 .sendTo(staff);
     }

@@ -1,9 +1,11 @@
 package com.fancyinnovations.fancycore.player.service;
 
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
+import com.fancyinnovations.fancycore.api.player.FancyPlayerData;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerStorage;
 import com.fancyinnovations.fancycore.main.FancyCorePlugin;
+import com.fancyinnovations.fancycore.player.FancyPlayerImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class FancyPlayerServiceImpl implements FancyPlayerService {
     @Override
     public FancyPlayer getByUsername(String username) {
         for (FancyPlayer fp : cache.values()) {
-            if (fp.getUsername().equalsIgnoreCase(username)) {
+            if (fp.getData().getUsername().equalsIgnoreCase(username)) {
                 return fp;
             }
         }
@@ -47,12 +49,13 @@ public class FancyPlayerServiceImpl implements FancyPlayerService {
     }
 
     public void addPlayerToCache(FancyPlayer player) {
-        cache.put(player.getUUID(), player);
+        cache.put(player.getData().getUUID(), player);
     }
 
     public FancyPlayer tryToGetFromStorage(UUID uuid) {
         try {
-            FancyPlayer fancyPlayer = storage.loadPlayer(uuid);
+            FancyPlayerData data = storage.loadPlayer(uuid);
+            FancyPlayer fancyPlayer = new FancyPlayerImpl(data);
             addPlayerToCache(fancyPlayer);
             return fancyPlayer;
         } catch (Exception e) {
@@ -62,7 +65,8 @@ public class FancyPlayerServiceImpl implements FancyPlayerService {
 
     public FancyPlayer tryToGetFromStorage(String username) {
         try {
-            FancyPlayer fancyPlayer = storage.loadPlayerByUsername(username);
+            FancyPlayerData data = storage.loadPlayerByUsername(username);
+            FancyPlayer fancyPlayer = new FancyPlayerImpl(data);
             addPlayerToCache(fancyPlayer);
             return fancyPlayer;
         } catch (Exception e) {
