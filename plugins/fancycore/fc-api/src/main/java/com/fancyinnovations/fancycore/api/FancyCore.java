@@ -3,6 +3,7 @@ package com.fancyinnovations.fancycore.api;
 import com.fancyinnovations.fancycore.api.events.service.EventService;
 import com.fancyinnovations.fancycore.api.moderation.PunishmentService;
 import com.fancyinnovations.fancycore.api.moderation.PunishmentStorage;
+import com.fancyinnovations.fancycore.api.placeholders.PlaceholderService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerStorage;
 import de.oliver.fancyanalytics.logger.ExtendedFancyLogger;
@@ -23,6 +24,8 @@ public interface FancyCore {
     ScheduledExecutorService getThreadPool();
 
     EventService getEventService();
+
+    PlaceholderService getPlaceholderService();
 
     @ApiStatus.Internal
     FancyPlayerStorage getPlayerStorage();

@@ -5,6 +5,7 @@ import com.fancyinnovations.fancycore.api.FancyCoreConfig;
 import com.fancyinnovations.fancycore.api.events.service.EventService;
 import com.fancyinnovations.fancycore.api.moderation.PunishmentService;
 import com.fancyinnovations.fancycore.api.moderation.PunishmentStorage;
+import com.fancyinnovations.fancycore.api.placeholders.PlaceholderService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerStorage;
 import com.fancyinnovations.fancycore.config.FancyCoreConfigImpl;
@@ -12,6 +13,7 @@ import com.fancyinnovations.fancycore.events.EventServiceImpl;
 import com.fancyinnovations.fancycore.metrics.PluginMetrics;
 import com.fancyinnovations.fancycore.moderation.service.PunishmentServiceImpl;
 import com.fancyinnovations.fancycore.moderation.storage.json.PunishmentJsonStorage;
+import com.fancyinnovations.fancycore.placeholders.PlaceholderServiceImpl;
 import com.fancyinnovations.fancycore.player.service.CleanUpPlayerCacheRunnable;
 import com.fancyinnovations.fancycore.player.service.FancyPlayerServiceImpl;
 import com.fancyinnovations.fancycore.player.storage.SavePlayersRunnable;
@@ -42,6 +44,7 @@ public class FancyCorePlugin implements FancyCore {
     private final PluginMetrics pluginMetrics;
 
     private final EventService eventService;
+    private final PlaceholderService placeholderService;
 
     private final TranslationService translationService;
 
@@ -87,6 +90,7 @@ public class FancyCorePlugin implements FancyCore {
         pluginMetrics = new PluginMetrics();
 
         eventService = new EventServiceImpl();
+        placeholderService = new PlaceholderServiceImpl();
 
         translationService = new TranslationService();
 
@@ -156,6 +160,11 @@ public class FancyCorePlugin implements FancyCore {
     @Override
     public EventService getEventService() {
         return eventService;
+    }
+
+    @Override
+    public PlaceholderService getPlaceholderService() {
+        return placeholderService;
     }
 
     public TranslationService getTranslationService() {
