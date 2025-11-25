@@ -2,6 +2,7 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("com.gradleup.shadow")
+    id("run-hytale")
 }
 
 allprojects {
@@ -29,6 +30,10 @@ dependencies {
 
     compileOnly("com.google.code.gson:gson:2.13.1")
     implementation("org.jetbrains:annotations:26.0.2")
+}
+
+runHytale {
+    jarUrl = "https://fill-data.papermc.io/v1/objects/d5f47f6393aa647759f101f02231fa8200e5bccd36081a3ee8b6a5fd96739057/paper-1.21.10-115.jar"
 }
 
 tasks {
