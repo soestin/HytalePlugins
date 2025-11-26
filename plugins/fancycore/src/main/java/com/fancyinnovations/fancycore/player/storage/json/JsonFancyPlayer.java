@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public record JsonFancyPlayer(
@@ -19,7 +20,8 @@ public record JsonFancyPlayer(
         @SerializedName("chat_color") String chatColor,
         double balance,
         @SerializedName("first_login_time") long firstLoginTime,
-        @SerializedName("play_time") long playTime
+        @SerializedName("play_time") long playTime,
+        @SerializedName("custom_data") Map<String, Object> customData
 ) {
 
     /**
@@ -45,7 +47,8 @@ public record JsonFancyPlayer(
                 Integer.toHexString(player.getChatColor().getRGB()),
                 player.getBalance(),
                 player.getFirstLoginTime(),
-                player.getPlayTime()
+                player.getPlayTime(),
+                player.getCustomData()
         );
     }
 
@@ -72,7 +75,8 @@ public record JsonFancyPlayer(
                 new Color((int) Long.parseLong(chatColor, 16), true),
                 balance,
                 firstLoginTime,
-                playTime
+                playTime,
+                customData
         );
     }
 

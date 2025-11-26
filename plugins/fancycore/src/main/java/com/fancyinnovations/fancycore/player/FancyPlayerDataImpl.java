@@ -8,20 +8,22 @@ import org.jetbrains.annotations.ApiStatus;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FancyPlayerDataImpl implements FancyPlayerData {
 
+    private final List<Permission> permissions;
+    private final List<UUID> groups;
+    private final Map<String, Object> customData;
     private UUID uuid;
     private String username;
-    private List<Permission> permissions;
-    private List<UUID> groups;
     private String nickname;
     private Color chatColor;
     private double balance;
     private long firstLoginTime; // timestamp
     private long playTime; // in milliseconds
-
     private boolean isDirty;
 
     /**
@@ -37,6 +39,8 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
         this.balance = 0.0;
         this.firstLoginTime = System.currentTimeMillis();
         this.playTime = 0L;
+        this.customData = new ConcurrentHashMap<>();
+
         this.isDirty = true;
     }
 
@@ -49,7 +53,8 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
             Color chatColor,
             double balance,
             long firstLoginTime,
-            long playTime
+            long playTime,
+            Map<String, Object> customData
     ) {
         this.uuid = uuid;
         this.username = username;
@@ -60,6 +65,7 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
         this.balance = balance;
         this.firstLoginTime = firstLoginTime;
         this.playTime = playTime;
+        this.customData = customData;
         this.isDirty = false;
     }
 
@@ -208,6 +214,26 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
     @Override
     public void addPlayTime(long additionalTime) {
         setPlayTime(this.playTime + additionalTime);
+    }
+
+    @Override
+    public Map<String, Object> getCustomData() {
+        return customData;
+    }
+
+    @Override
+    public <T> void setCustomData(String key, T value) {
+        customData.put(key, value);
+    }
+
+    @Override
+    public <T> T getCustomData(String key) {
+        return (T) customData.get(key);
+    }
+
+    @Override
+    public void removeCustomData(String key) {
+        customData.remove(key);
     }
 
     @Override

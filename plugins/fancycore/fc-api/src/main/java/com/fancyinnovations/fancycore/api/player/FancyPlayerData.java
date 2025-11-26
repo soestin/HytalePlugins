@@ -5,6 +5,7 @@ import org.jetbrains.annotations.ApiStatus;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -43,6 +44,11 @@ public interface FancyPlayerData {
 
     long getPlayTime();
     void addPlayTime(long playTime);
+
+    Map<String, Object> getCustomData();
+    <T> void setCustomData(String key, T value);
+    <T> T getCustomData(String key);
+    void removeCustomData(String key);
 
     boolean isDirty();
     void setDirty(boolean dirty);
