@@ -39,7 +39,8 @@ public class PlayerPunishedEvent extends PlayerEvent {
                         List.of(
                                 new Embed(
                                         player.getData().getUsername() + " has been warned",
-                                        "Reason: " + punishment.reason() + "\nIssued by: " +
+                                        "Reason: " + punishment.reason() +
+                                                "\nIssued by: " +
                                                 punishment.issuedBy(),
                                         0xdbb134
                                 )

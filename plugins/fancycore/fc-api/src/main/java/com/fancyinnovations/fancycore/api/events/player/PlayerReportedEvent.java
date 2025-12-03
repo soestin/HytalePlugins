@@ -1,7 +1,11 @@
 package com.fancyinnovations.fancycore.api.events.player;
 
+import com.fancyinnovations.fancycore.api.discord.Embed;
+import com.fancyinnovations.fancycore.api.discord.Message;
 import com.fancyinnovations.fancycore.api.moderation.PlayerReport;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
+
+import java.util.List;
 
 /**
  * Event fired when a player is reported by another player.
@@ -22,5 +26,21 @@ public class PlayerReportedEvent extends PlayerEvent {
      */
     public PlayerReport getReport() {
         return report;
+    }
+
+    @Override
+    public Message getDiscordMessage() {
+        // TODO: make text translatable
+        return new Message(
+                "Player reported",
+                List.of(
+                        new Embed(
+                                player.getData().getUsername() + " has been reported",
+                                "Reason: " + report.reason() +
+                                        "\nReported by: " + report.reportingPlayer().getData().getUsername(),
+                                0xdbb134
+                        )
+                )
+        );
     }
 }

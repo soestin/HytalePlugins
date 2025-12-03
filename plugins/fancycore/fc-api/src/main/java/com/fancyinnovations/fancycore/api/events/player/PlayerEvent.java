@@ -1,7 +1,11 @@
 package com.fancyinnovations.fancycore.api.events.player;
 
+import com.fancyinnovations.fancycore.api.discord.Embed;
+import com.fancyinnovations.fancycore.api.discord.Message;
 import com.fancyinnovations.fancycore.api.events.FancyEvent;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
+
+import java.util.List;
 
 /**
  * The base class for all player-related events in the FancyCore system.
@@ -22,5 +26,21 @@ public abstract class PlayerEvent extends FancyEvent {
      */
     public FancyPlayer getPlayer() {
         return player;
+    }
+
+    @Override
+    public Message getDiscordMessage() {
+        // TODO: make text translatable
+        return new Message(
+                "A player event of type " + this.getClass().getSimpleName() + " was fired.",
+                List.of(
+                        new Embed(
+                                "Player event fired",
+                                "Event Type: " + this.getClass().getSimpleName() + "\nFired At: <t:"+fire()+":f>" +
+                                        "\nPlayer: " + player.getData().getUsername(),
+                                0x3498db
+                        )
+                )
+        );
     }
 }

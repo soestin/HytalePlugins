@@ -85,7 +85,7 @@ public abstract class FancyEvent {
                 "An event of type " + this.getClass().getSimpleName() + " was fired.",
                 List.of(
                         new Embed(
-                                "Event Fired",
+                                "Event fired",
                                 "Event Type: " + this.getClass().getSimpleName() + "\nFired At: <t:"+firedAt+":f>",
                                 0x3498db
                         )
