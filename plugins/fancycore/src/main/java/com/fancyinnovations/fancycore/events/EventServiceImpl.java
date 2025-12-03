@@ -1,8 +1,11 @@
 package com.fancyinnovations.fancycore.events;
 
+import com.fancyinnovations.fancycore.api.FancyCoreConfig;
 import com.fancyinnovations.fancycore.api.events.FancyEvent;
 import com.fancyinnovations.fancycore.api.events.service.EventListener;
 import com.fancyinnovations.fancycore.api.events.service.EventService;
+import com.fancyinnovations.fancycore.main.FancyCorePlugin;
+import com.fancyinnovations.fancycore.utils.DiscordWebhook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +13,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class EventServiceImpl implements EventService {
+
+    public static final FancyCoreConfig CONFIG = FancyCorePlugin.get().getConfig();
 
     private final Map<Class<? extends FancyEvent>, List<EventListener<? extends FancyEvent>>> listeners;
 
@@ -19,6 +24,15 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public boolean fireEvent(FancyEvent event) {
+        if (!CONFIG.getEventDiscordWebhookUrl().isEmpty()) {
+            for (String evt : CONFIG.getEventDiscordNotifications()) {
+                if (event.getClass().getSimpleName().equalsIgnoreCase(evt)) {
+                    DiscordWebhook.sendMsg(CONFIG.getEventDiscordWebhookUrl(), event.getDiscordMessage());
+                    break;
+                }
+            }
+        }
+
         if (!this.listeners.containsKey(event.getClass())) {
             return true;
         }
