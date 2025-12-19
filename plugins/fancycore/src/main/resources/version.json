@@ -1,0 +1,5 @@
+{
+  "version": "$version",
+  "channel": "$chanmel",
+  "commit": "$commit"
+}

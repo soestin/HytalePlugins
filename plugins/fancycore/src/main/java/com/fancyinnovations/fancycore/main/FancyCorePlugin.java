@@ -25,14 +25,12 @@ import com.fancyinnovations.fancycore.player.storage.SavePlayersRunnable;
 import com.fancyinnovations.fancycore.player.storage.json.FancyPlayerJsonStorage;
 import com.fancyinnovations.fancycore.translations.TranslationService;
 import com.fancyinnovations.versionchecker.FancySpacesVersionFetcher;
-import com.fancyinnovations.versionchecker.FetchedVersion;
-import com.fancyinnovations.versionchecker.VersionFetcher;
+import com.fancyinnovations.versionchecker.VersionChecker;
 import de.oliver.fancyanalytics.logger.ExtendedFancyLogger;
 import de.oliver.fancyanalytics.logger.LogLevel;
 import de.oliver.fancyanalytics.logger.appender.Appender;
 import de.oliver.fancyanalytics.logger.appender.ConsoleAppender;
 import de.oliver.fancyanalytics.logger.appender.JsonAppender;
-import de.oliver.fancyanalytics.logger.properties.StringProperty;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -49,7 +47,7 @@ public class FancyCorePlugin implements FancyCore {
     private final ScheduledExecutorService threadPool;
 
     private final FancyCoreConfig fancyCoreConfig;
-    private final VersionFetcher versionFetcher;
+    private final VersionChecker versionChecker;
 
     private final PluginMetrics pluginMetrics;
 
@@ -99,7 +97,7 @@ public class FancyCorePlugin implements FancyCore {
         });
 
         fancyCoreConfig = new FancyCoreConfigImpl();
-        versionFetcher = new FancySpacesVersionFetcher("fc");
+        versionChecker = new VersionChecker(fancyLogger, "FancyCore", new FancySpacesVersionFetcher("fc"));
 
         pluginMetrics = new PluginMetrics();
 
@@ -141,16 +139,11 @@ public class FancyCorePlugin implements FancyCore {
         fancyLogger.setCurrentLevel(logLevel);
 
         // check if latest version is running
-        FetchedVersion latestVersion = versionFetcher.latestVersion();
-        FetchedVersion currentVersion = versionFetcher.version("TOOD"); //TODO: get current plugin version
-        if (latestVersion.isNewerThan(currentVersion)) {
-            fancyLogger.warn(
-                    "You are using an outdated version of FancyCore. Please consider updating to the latest version.",
-                    StringProperty.of("current_version", currentVersion.name()),
-                    StringProperty.of("latest_version", latestVersion.name()),
-                    StringProperty.of("download_url", latestVersion.downloadURL())
-            );
-        }
+        versionChecker.checkForConsole();
+
+        // TODO enable this once FA integration is configured
+        // versionChecker.checkPluginVersionChanged(apiClient, "fc");
+
 
         // start player schedulers
         savePlayersRunnable.schedule();

@@ -29,7 +29,6 @@ dependencies {
     implementation("de.oliver:config:1.0.0")
     implementation("de.oliver.FancyAnalytics:java-sdk:0.0.5")
     implementation("de.oliver.FancyAnalytics:logger:0.0.9")
-    implementation("de.oliver.FancyAnalytics:logger:0.0.9")
     implementation("com.fancyinnovations.fancyspaces:java-sdk:0.0.2")
 
     compileOnly("com.google.code.gson:gson:2.13.2")
@@ -62,13 +61,12 @@ tasks {
         val props = mapOf(
             "description" to project.description,
             "version" to getFCVersion(),
-            "commit_hash" to gitCommitHash,
+            "commit" to gitCommitHash,
             "channel" to (System.getenv("RELEASE_CHANNEL") ?: "").ifEmpty { "undefined" },
-            "platform" to (System.getenv("RELEASE_PLATFORM") ?: "").ifEmpty { "undefined" }
         )
         inputs.properties(props)
 
-        filesMatching("version.yml") {
+        filesMatching("version.json") {
             expand(props)
         }
         filesMatching("plugin-manifest.json") {
