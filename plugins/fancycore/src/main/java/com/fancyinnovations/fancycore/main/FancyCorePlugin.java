@@ -137,6 +137,8 @@ public class FancyCorePlugin implements FancyCore {
 
         chatStorage = new ChatJsonStorage();
         chatService = new ChatServiceImpl();
+
+        SeedDefaultData.seed();
     }
 
     public static FancyCorePlugin get() {
