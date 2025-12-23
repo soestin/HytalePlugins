@@ -16,10 +16,14 @@ import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerStorage;
 import com.fancyinnovations.fancycore.chat.service.ChatServiceImpl;
 import com.fancyinnovations.fancycore.chat.storage.json.ChatJsonStorage;
+import com.fancyinnovations.fancycore.commands.server.UpdatePluginCMD;
 import com.fancyinnovations.fancycore.config.FancyCoreConfigImpl;
 import com.fancyinnovations.fancycore.economy.service.CurrencyServiceImpl;
 import com.fancyinnovations.fancycore.economy.storage.json.CurrencyJsonStorage;
 import com.fancyinnovations.fancycore.events.EventServiceImpl;
+import com.fancyinnovations.fancycore.listeners.PlayerChatListener;
+import com.fancyinnovations.fancycore.listeners.PlayerJoinListener;
+import com.fancyinnovations.fancycore.listeners.PlayerLeaveListener;
 import com.fancyinnovations.fancycore.metrics.PluginMetrics;
 import com.fancyinnovations.fancycore.moderation.service.PunishmentServiceImpl;
 import com.fancyinnovations.fancycore.moderation.storage.json.PunishmentJsonStorage;
@@ -176,6 +180,10 @@ public class FancyCorePlugin implements FancyCore {
         // register metrics
         pluginMetrics.register();
 
+        // register commands and listeners
+        registerCommands();
+        registerListeners();
+
         fancyLogger.info("FancyCore has been enabled.");
     }
 
@@ -189,6 +197,20 @@ public class FancyCorePlugin implements FancyCore {
         fancyLogger.info("FancyCore has been disabled.");
     }
 
+    public void registerCommands() {
+        // TODO (HTEA): register commands properly
+
+        new UpdatePluginCMD();
+    }
+
+    public void registerListeners() {
+        // TODO (HTEA): register listeners properly
+
+        new PlayerJoinListener();
+        new PlayerLeaveListener();
+        new PlayerChatListener();
+    }
+
     @Override
     public ExtendedFancyLogger getFancyLogger() {
         return fancyLogger;
@@ -197,6 +219,11 @@ public class FancyCorePlugin implements FancyCore {
     @Override
     public FancyCoreConfig getConfig() {
         return fancyCoreConfig;
+    }
+
+
+    public VersionChecker getVersionChecker() {
+        return versionChecker;
     }
 
     @Override
@@ -265,6 +292,6 @@ public class FancyCorePlugin implements FancyCore {
 
     @Override
     public ChatService getChatService() {
-        return getChatService();
+        return chatService;
     }
 }
