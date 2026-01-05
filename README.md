@@ -8,7 +8,7 @@ This repository contains a collection of Hytale plugins developed by FancyInnova
 
 A core plugin that provides essential functionalities and utilities.
 
-Documentation: https://docs.fancyinnovations.com/fancycore/
+Documentation: https://fancyinnovations.com/docs/hytale-plugins/fancycore/
 
 ## Gradle plugins
 

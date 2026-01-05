@@ -31,7 +31,7 @@ FancyCore is designed with ease of use, high performance, and extensibility in m
 - Server statistics
 - API for developers
 
-Learn more about each feature in the documentation: https://docs.fancyinnovations.com/fancycore/
+Learn more about each feature in the documentation: https://fancyinnovations.com/docs/hytale-plugins/fancycore/
 
 ### Permissions
 
