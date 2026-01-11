@@ -151,8 +151,14 @@ public class FancyCorePlugin implements FancyCore {
         return INSTANCE;
     }
 
-    public void onEnable() {
-        fancyLogger.info("FancyCore is enabling...");
+    public void setup() {
+        fancyLogger.info("Setting up FancyCore...");
+
+        fancyLogger.info("FancyCore has been set up.");
+    }
+
+    public void start() {
+        fancyLogger.info("FancyCore is starting...");
 
         // load config
         ((FancyCoreConfigImpl) fancyCoreConfig).init();
@@ -184,17 +190,17 @@ public class FancyCorePlugin implements FancyCore {
         registerCommands();
         registerListeners();
 
-        fancyLogger.info("FancyCore has been enabled.");
+        fancyLogger.info("FancyCore has been started.");
     }
 
-    public void onDisable() {
-        fancyLogger.info("FancyCore is disabling...");
+    public void shutdown() {
+        fancyLogger.info("FancyCore is shutting down...");
 
         threadPool.shutdown();
 
         savePlayersRunnable.run();
 
-        fancyLogger.info("FancyCore has been disabled.");
+        fancyLogger.info("FancyCore has been shut down.");
     }
 
     public void registerCommands() {
