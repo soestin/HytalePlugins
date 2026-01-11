@@ -19,6 +19,8 @@ allprojects {
 }
 
 dependencies {
+    // TODO (HTEA): Update dependency when available
+//    compileOnly("com.hypixel.hytale:Server:VERSION")
     compileOnly(files("../../libraries/hytale-server/server.jar"))
 
     implementation(project(":plugins:fancycore:fc-api"))
