@@ -1,8 +1,9 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     id("java-library")
     id("maven-publish")
     id("com.gradleup.shadow")
-    id("run-hytale")
 }
 
 allprojects {
@@ -40,9 +41,41 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-runHytale {
-    // TODO (HTEA): Use real link
-    jarUrl = "https://hytale.com/dl/env-prod/hytaleserver.jar"
+tasks.register<Copy>("copyShadowJar") {
+    group = "hytale"
+    val shadowJarTask = tasks.named<ShadowJar>("shadowJar")
+    dependsOn(shadowJarTask)
+
+    from(shadowJarTask.flatMap { it.archiveFile })
+    into(file("run/mods"))
+}
+
+tasks.register<JavaExec>("runServer") {
+    group = "hytale"
+    description = "Runs the Hytale server from the run directory using Java 25 toolchain"
+
+    dependsOn("copyShadowJar")
+
+    workingDir = file("run")
+
+    classpath = files("server.jar")
+
+    mainClass.set("-jar")
+
+    args(
+        "server.jar",
+        "--assets",
+        "Assets.zip",
+        "--disable-sentry"
+    )
+
+    jvmArgs("-XX:AOTCache=HytaleServer.aot")
+
+    javaLauncher.set(
+        javaToolchains.launcherFor {
+            languageVersion.set(JavaLanguageVersion.of(25))
+        }
+    )
 }
 
 tasks {

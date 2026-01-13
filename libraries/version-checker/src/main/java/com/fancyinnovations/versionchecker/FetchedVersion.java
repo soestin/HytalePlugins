@@ -7,6 +7,6 @@ public record FetchedVersion(
 ) {
 
     public boolean isNewerThan(FetchedVersion other) {
-        return other.publishedAt > this.publishedAt;
+        return other.publishedAt < this.publishedAt;
     }
 }

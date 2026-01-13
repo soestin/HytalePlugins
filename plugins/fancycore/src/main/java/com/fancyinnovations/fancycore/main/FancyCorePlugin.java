@@ -207,11 +207,12 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
 
     @Override
     protected void shutdown() {
-        fancyLogger.info("FancyCore is shutting down...");
+        fancyLogger.info("FancyCore is shutting down...a");
+
+        savePlayersRunnable.run();
 
         threadPool.shutdown();
 
-        savePlayersRunnable.run();
 
         fancyLogger.info("FancyCore has been shut down.");
     }

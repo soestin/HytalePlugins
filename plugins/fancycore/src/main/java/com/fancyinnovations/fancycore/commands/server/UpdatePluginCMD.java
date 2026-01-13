@@ -8,7 +8,6 @@ import com.fancyinnovations.versionchecker.VersionChecker;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.AbstractCommand;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
-import com.hypixel.hytale.server.core.plugin.PluginManager;
 import de.oliver.fancyanalytics.logger.ExtendedFancyLogger;
 import de.oliver.fancyanalytics.logger.properties.StringProperty;
 import de.oliver.fancyanalytics.logger.properties.ThrowableProperty;
@@ -39,15 +38,16 @@ public class UpdatePluginCMD extends AbstractCommand {
         FetchedVersion latestVersion = this.versionChecker.check();
         if (latestVersion == null) {
             // TODO (I18N): make translatable
-            commandContext.sender().sendMessage(Message.raw("FancyCore is up to date"));
-            logger.info("FancyCore is up to date");
+            commandContext.sender().sendMessage(
+                    Message.raw("You are already using the latest version of FancyCore.")
+            );
+            logger.info("FancyCore is already up to date.");
             return CompletableFuture.completedFuture(null);
         }
 
         // TODO (I18N): make translatable
         commandContext.sender().sendMessage(
-                Message.raw("A new version of FancyCore is available: " + latestVersion.name() +
-                        ". It will be downloaded now. Please restart the server after the download is complete.")
+                Message.raw("A new version of FancyCore is available: " + latestVersion.name() + ". It will be downloaded now. Please restart the server after the download is complete.")
         );
         logger.info(
                 "A new version of FancyCore is available",
@@ -90,8 +90,6 @@ public class UpdatePluginCMD extends AbstractCommand {
                     StringProperty.of("published_at", TimeUtils.formatDate(latestVersion.publishedAt())),
                     StringProperty.of("download_link", latestVersion.downloadURL())
             );
-
-            PluginManager.get().reload(FancyCorePlugin.get().getIdentifier());
 
         } catch (URISyntaxException | IOException | InterruptedException e) {
             commandContext.sender().sendMessage(

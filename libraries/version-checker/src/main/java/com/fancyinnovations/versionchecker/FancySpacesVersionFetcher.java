@@ -16,12 +16,12 @@ public class FancySpacesVersionFetcher implements VersionFetcher {
     }
 
     public FancySpacesVersionFetcher(String spaceID) {
-        this(spaceID, "");
+        this(spaceID, null);
     }
 
     @Override
     public FetchedVersion latestVersion() {
-        Version version = fs.getVersionService().getLatestVersion(spaceID, "hytale_plugin", channel);
+        Version version = fs.getVersionService().getLatestVersion(spaceID, "hytale_plugin", null);
 
         return new FetchedVersion(
                 version.name(),
