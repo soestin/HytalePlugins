@@ -40,6 +40,7 @@ import com.fancyinnovations.versionchecker.FancySpacesVersionFetcher;
 import com.fancyinnovations.versionchecker.VersionChecker;
 import com.google.gson.Gson;
 import com.hypixel.hytale.event.EventRegistry;
+import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.event.events.player.PlayerChatEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
@@ -217,8 +218,7 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
 
     public void registerCommands() {
         // TODO (HTEA): register commands properly
-
-        new UpdatePluginCMD();
+        CommandManager.get().register(new UpdatePluginCMD());
     }
 
     public void registerListeners() {
