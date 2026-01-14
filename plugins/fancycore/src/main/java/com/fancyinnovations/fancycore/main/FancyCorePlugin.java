@@ -21,9 +21,9 @@ import com.fancyinnovations.fancycore.chat.storage.json.ChatJsonStorage;
 import com.fancyinnovations.fancycore.commands.chat.chatroom.ChatRoomCMD;
 import com.fancyinnovations.fancycore.commands.chat.message.*;
 import com.fancyinnovations.fancycore.commands.fancycore.FancyCoreCMD;
+import com.fancyinnovations.fancycore.commands.teleport.TeleportAllCMD;
 import com.fancyinnovations.fancycore.commands.teleport.TeleportCMD;
 import com.fancyinnovations.fancycore.commands.teleport.TeleportHereCMD;
-import com.fancyinnovations.fancycore.commands.teleport.TeleportAllCMD;
 import com.fancyinnovations.fancycore.commands.teleport.TeleportPosCMD;
 import com.fancyinnovations.fancycore.config.FancyCoreConfigImpl;
 import com.fancyinnovations.fancycore.economy.service.CurrencyServiceImpl;
@@ -147,7 +147,7 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         versionFetcher = new FancySpacesVersionFetcher("fc");
         versionChecker = new VersionChecker(fancyLogger, "FancyCore", versionFetcher);
 
-        pluginMetrics = new PluginMetrics();
+        pluginMetrics = new PluginMetrics("4bcf8d05-9d69-4574-9d81-96ec0ec2894c");
 
         eventService = new EventServiceImpl();
         placeholderService = new PlaceholderServiceImpl();
