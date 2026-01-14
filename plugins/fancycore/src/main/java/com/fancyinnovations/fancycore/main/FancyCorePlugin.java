@@ -19,7 +19,7 @@ import com.fancyinnovations.fancycore.api.player.FancyPlayerStorage;
 import com.fancyinnovations.fancycore.chat.service.ChatServiceImpl;
 import com.fancyinnovations.fancycore.chat.storage.json.ChatJsonStorage;
 import com.fancyinnovations.fancycore.commands.chat.chatroom.ChatRoomCMD;
-import com.fancyinnovations.fancycore.commands.server.UpdatePluginCMD;
+import com.fancyinnovations.fancycore.commands.fancycore.FancyCoreCMD;
 import com.fancyinnovations.fancycore.config.FancyCoreConfigImpl;
 import com.fancyinnovations.fancycore.economy.service.CurrencyServiceImpl;
 import com.fancyinnovations.fancycore.economy.storage.json.CurrencyJsonStorage;
@@ -41,6 +41,7 @@ import com.fancyinnovations.fancycore.player.storage.json.FancyPlayerJsonStorage
 import com.fancyinnovations.fancycore.translations.TranslationService;
 import com.fancyinnovations.versionchecker.FancySpacesVersionFetcher;
 import com.fancyinnovations.versionchecker.VersionChecker;
+import com.fancyinnovations.versionchecker.VersionFetcher;
 import com.google.gson.Gson;
 import com.hypixel.hytale.event.EventRegistry;
 import com.hypixel.hytale.server.core.command.system.CommandManager;
@@ -70,6 +71,7 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
     private final ScheduledExecutorService threadPool;
 
     private FancyCoreConfig fancyCoreConfig;
+    private VersionFetcher versionFetcher;
     private VersionChecker versionChecker;
 
     private PluginMetrics pluginMetrics;
@@ -137,7 +139,8 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
 
         fancyCoreConfig = new FancyCoreConfigImpl();
 
-        versionChecker = new VersionChecker(fancyLogger, "FancyCore", new FancySpacesVersionFetcher("fc"));
+        versionFetcher = new FancySpacesVersionFetcher("fc");
+        versionChecker = new VersionChecker(fancyLogger, "FancyCore", versionFetcher);
 
         pluginMetrics = new PluginMetrics();
 
@@ -223,7 +226,7 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
 
     public void registerCommands() {
         // server
-        CommandManager.get().register(new UpdatePluginCMD());
+        CommandManager.get().register(new FancyCoreCMD());
 
         // chat
         CommandManager.get().register(new ChatRoomCMD());
@@ -255,6 +258,9 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         return fancyCoreConfig;
     }
 
+    public VersionFetcher getVersionFetcher() {
+        return versionFetcher;
+    }
 
     public VersionChecker getVersionChecker() {
         return versionChecker;

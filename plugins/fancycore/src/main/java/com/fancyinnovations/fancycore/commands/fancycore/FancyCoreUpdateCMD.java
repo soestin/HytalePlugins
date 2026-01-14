@@ -1,4 +1,4 @@
-package com.fancyinnovations.fancycore.commands.server;
+package com.fancyinnovations.fancycore.commands.fancycore;
 
 import com.fancyinnovations.fancycore.main.FancyCorePlugin;
 import com.fancyinnovations.fancycore.utils.TimeUtils;
@@ -6,13 +6,12 @@ import com.fancyinnovations.fancyspaces.utils.HttpRequest;
 import com.fancyinnovations.versionchecker.FetchedVersion;
 import com.fancyinnovations.versionchecker.VersionChecker;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.command.system.AbstractCommand;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
+import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import de.oliver.fancyanalytics.logger.ExtendedFancyLogger;
 import de.oliver.fancyanalytics.logger.properties.StringProperty;
 import de.oliver.fancyanalytics.logger.properties.ThrowableProperty;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,21 +19,20 @@ import java.net.URISyntaxException;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.CompletableFuture;
 
-public class UpdatePluginCMD extends AbstractCommand {
+public class FancyCoreUpdateCMD extends CommandBase {
 
     private final ExtendedFancyLogger logger;
     private final VersionChecker versionChecker;
 
-    public UpdatePluginCMD()  {
-        super("updateplugin", "Updates the FancyCore plugin to the latest version");
+    public FancyCoreUpdateCMD()  {
+        super("update", "Update the FancyCore plugin to the latest version");
         this.logger = FancyCorePlugin.get().getFancyLogger();
         this.versionChecker = FancyCorePlugin.get().getVersionChecker();
     }
 
     @Override
-    protected @Nullable CompletableFuture<Void> execute(@NotNull CommandContext ctx) {
+    protected void executeSync(@NotNull CommandContext ctx) {
         FetchedVersion latestVersion = this.versionChecker.check();
         if (latestVersion == null) {
             // TODO (I18N): make translatable
@@ -42,7 +40,7 @@ public class UpdatePluginCMD extends AbstractCommand {
                     Message.raw("You are already using the latest version of FancyCore.")
             );
             logger.info("FancyCore is already up to date.");
-            return CompletableFuture.completedFuture(null);
+            return;
         }
 
         // TODO (I18N): make translatable
@@ -103,7 +101,5 @@ public class UpdatePluginCMD extends AbstractCommand {
                     ThrowableProperty.of(e)
             );
         }
-
-        return CompletableFuture.completedFuture(null);
     }
 }

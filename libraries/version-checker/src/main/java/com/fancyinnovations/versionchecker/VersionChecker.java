@@ -31,12 +31,7 @@ public class VersionChecker {
      */
     public FetchedVersion check() {
         FetchedVersion latestVersion = versionFetcher.latestVersion();
-        System.out.println("Latest version: " + latestVersion.name());
-        System.out.println("Latest version: " + latestVersion.publishedAt());
-
         FetchedVersion currentVersion = versionFetcher.version(versionConfig.version());
-        System.out.println("Current version: " + currentVersion.name());
-        System.out.println("Current version: " + currentVersion.publishedAt());
 
         if (latestVersion.isNewerThan(currentVersion)) {
             return latestVersion;
