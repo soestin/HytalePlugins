@@ -76,6 +76,8 @@ tasks.register<JavaExec>("runServer") {
             languageVersion.set(JavaLanguageVersion.of(25))
         }
     )
+
+    standardInput = System.`in`
 }
 
 tasks {
