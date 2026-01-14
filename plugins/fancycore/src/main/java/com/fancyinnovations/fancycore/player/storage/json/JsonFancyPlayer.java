@@ -65,28 +65,34 @@ public record JsonFancyPlayer(
      */
     public FancyPlayerData toFancyPlayer() {
         List<Permission> perms = new ArrayList<>();
-        for (JsonPermission jsonPerm : permissions) {
-            perms.add(jsonPerm.toPermission());
+        if (permissions != null) {
+            for (JsonPermission jsonPerm : permissions) {
+                perms.add(jsonPerm.toPermission());
+            }
         }
 
         List<UUID> ignoredPlayerUUIDs = new ArrayList<>();
-        for (String ignoredPlayer : ignoredPlayers) {
-            try {
-                ignoredPlayerUUIDs.add(UUID.fromString(ignoredPlayer));
-            } catch (IllegalArgumentException e) {
-                FancyCore.get().getFancyLogger().warn("Invalid UUID '" + ignoredPlayer + "' in ignored players for player " + username);
+        if (ignoredPlayers != null) {
+            for (String ignoredPlayer : ignoredPlayers) {
+                try {
+                    ignoredPlayerUUIDs.add(UUID.fromString(ignoredPlayer));
+                } catch (IllegalArgumentException e) {
+                    FancyCore.get().getFancyLogger().warn("Invalid UUID '" + ignoredPlayer + "' in ignored players for player " + username);
+                }
             }
         }
 
         Map<Currency, Double> balances = new HashMap<>();
-        for (var entry : this.balances.entrySet()) {
-            Currency currency = FancyCore.get().getCurrencyService().getCurrency(entry.getKey());
-            if (currency == null) {
-                FancyCore.get().getFancyLogger().warn("Currency with name '" + entry.getKey() + "' not found for player " + username);
-                continue;
-            }
+        if (this.balances != null) {
+            for (var entry : this.balances.entrySet()) {
+                Currency currency = FancyCore.get().getCurrencyService().getCurrency(entry.getKey());
+                if (currency == null) {
+                    FancyCore.get().getFancyLogger().warn("Currency with name '" + entry.getKey() + "' not found for player " + username);
+                    continue;
+                }
 
-            balances.put(currency, entry.getValue());
+                balances.put(currency, entry.getValue());
+            }
         }
 
         return new FancyPlayerDataImpl(
