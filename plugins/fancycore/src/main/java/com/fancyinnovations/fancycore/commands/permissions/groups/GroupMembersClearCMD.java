@@ -10,8 +10,6 @@ import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredAr
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-
 public class GroupMembersClearCMD extends CommandBase {
 
     protected final RequiredArg<Group> groupArg = this.withRequiredArg(GroupArg.NAME, GroupArg.DESCRIPTION, GroupArg.TYPE);
@@ -42,7 +40,7 @@ public class GroupMembersClearCMD extends CommandBase {
 
         Group group = groupArg.get(ctx);
 
-        group.setMembers(new ArrayList<>());
+        group.clearMembers();
 
         FancyCorePlugin.get().getPermissionStorage().storeGroup(group);
 

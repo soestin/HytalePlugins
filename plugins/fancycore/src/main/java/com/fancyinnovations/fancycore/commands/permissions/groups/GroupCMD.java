@@ -13,10 +13,11 @@ public class GroupCMD extends AbstractCommandCollection {
 
         addSubCommand(new GroupCreateCMD());
         addSubCommand(new GroupDeleteCMD());
-        addSubCommand(new GroupSetParentCMD());
+        addSubCommand(new GroupParentsAddCMD());
         addSubCommand(new GroupSetPrefixCMD());
         addSubCommand(new GroupSetSuffixCMD());
         addSubCommand(new GroupPermissionsCMD());
+        addSubCommand(new GroupParentsCMD());
         addSubCommand(new GroupMembersCMD());
     }
 }

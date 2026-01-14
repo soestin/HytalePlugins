@@ -10,14 +10,14 @@ import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredAr
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import org.jetbrains.annotations.NotNull;
 
-public class GroupSetParentCMD extends CommandBase {
+public class GroupParentsAddCMD extends CommandBase {
 
     protected final RequiredArg<Group> groupArg = this.withRequiredArg(GroupArg.NAME, GroupArg.DESCRIPTION, GroupArg.TYPE);
     protected final RequiredArg<Group> parentArg = this.withRequiredArg("parent", GroupArg.DESCRIPTION, GroupArg.TYPE);
 
-    protected GroupSetParentCMD() {
-        super("setparent", "Sets a group's parent group");
-        requirePermission("fancycore.commands.groups.setparent");
+    protected GroupParentsAddCMD() {
+        super("add", "Adds a parent group to a group");
+        requirePermission("fancycore.commands.groups.parents.add");
     }
 
     @Override
@@ -42,10 +42,10 @@ public class GroupSetParentCMD extends CommandBase {
         Group group = groupArg.get(ctx);
         Group parent = parentArg.get(ctx);
 
-        group.setParent(parent.getName());
+        group.addParent(parent.getName());
 
         FancyCorePlugin.get().getPermissionStorage().storeGroup(group);
 
-        fp.sendMessage("Set parent of group " + group.getName() + " to " + parent.getName() + ".");
+        fp.sendMessage("Added parent group " + parent.getName() + " to group " + group.getName() + ".");
     }
 }
