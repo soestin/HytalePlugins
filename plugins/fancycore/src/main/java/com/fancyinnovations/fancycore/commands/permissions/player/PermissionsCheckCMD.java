@@ -25,22 +25,23 @@ public class PermissionsCheckCMD extends CommandBase {
 
     @Override
     protected void executeSync(@NotNull CommandContext ctx) {
-        if (!ctx.isPlayer()) {
-            ctx.sendMessage(Message.raw("This command can only be executed by a player."));
+        if (!targetArg.provided(ctx) && !ctx.isPlayer()) {
+            ctx.sendMessage(Message.raw("You must specify a target player when executing this command from the console."));
             return;
         }
 
         FancyPlayer fp = FancyPlayerService.get().getByUUID(ctx.sender().getUuid());
-        if (fp == null) {
-            ctx.sendMessage(Message.raw("FancyPlayer not found."));
-            return;
-        }
 
         FancyPlayer target = targetArg.provided(ctx) ? targetArg.get(ctx) : fp;
 
         String permission = permissionArg.get(ctx);
 
         boolean success = target.checkPermission(permission);
-        fp.sendMessage("Player " + target.getData().getUsername() + (success ? " has " : " does not have ") + "the permission " + permission + ".");
+
+        if (ctx.isPlayer()) {
+            fp.sendMessage("Player " + target.getData().getUsername() + (success ? " has " : " does not have ") + "the permission " + permission + ".");
+        } else {
+            ctx.sendMessage(Message.raw("Player " + target.getData().getUsername() + (success ? " has " : " does not have ") + "the permission " + permission + "."));
+        }
     }
 }

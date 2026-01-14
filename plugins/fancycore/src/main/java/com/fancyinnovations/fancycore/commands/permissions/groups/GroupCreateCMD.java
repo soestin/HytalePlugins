@@ -37,12 +37,6 @@ public class GroupCreateCMD extends CommandBase {
             return;
         }
 
-        // TODO: Permission check
-//        if (!fp.checkPermission("fancycore.commands.groups.create")) {
-//            fp.sendMessage(Message.raw("You do not have permission to create groups."));
-//            return;
-//        }
-
         String name = groupNameArg.get(ctx);
 
         if (PermissionService.get().getGroup(name) != null) {

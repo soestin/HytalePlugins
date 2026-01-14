@@ -7,6 +7,7 @@ public class PermissionsCMD extends AbstractCommandCollection {
     public PermissionsCMD() {
         super("permissions", "Manage player permissions");
         addAliases("permission", "perms");
+        requirePermission("fancycore.commands.permissions");
 
         addSubCommand(new PermissionsCheckCMD());
         addSubCommand(new PermissionsListCMD());

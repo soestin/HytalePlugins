@@ -24,22 +24,7 @@ public class PermissionsSetCMD extends CommandBase {
 
     @Override
     protected void executeSync(@NotNull CommandContext ctx) {
-        if (!ctx.isPlayer()) {
-            ctx.sendMessage(Message.raw("This command can only be executed by a player."));
-            return;
-        }
-
         FancyPlayer fp = FancyPlayerService.get().getByUUID(ctx.sender().getUuid());
-        if (fp == null) {
-            ctx.sendMessage(Message.raw("FancyPlayer not found."));
-            return;
-        }
-
-        // TODO: Permission check
-//        if (!fp.checkPermission("fancycore.commands.chatroom.delete")) {
-//            fp.sendMessage(Message.raw("You do not have permission to delete a chat room."));
-//            return;
-//        }
 
         FancyPlayer target = targetArg.get(ctx);
         String permission = permissionArg.get(ctx);
@@ -47,6 +32,10 @@ public class PermissionsSetCMD extends CommandBase {
 
         target.getData().setPermission(permission, enabled);
 
-        fp.sendMessage("Set permission " + permission + " to " + enabled + " for player " + target.getData().getUsername() + ".");
+        if (ctx.isPlayer()) {
+            fp.sendMessage("Set permission " + permission + " to " + enabled + " for player " + target.getData().getUsername() + ".");
+        } else {
+            ctx.sendMessage(Message.raw("Set permission " + permission + " to " + enabled + " for player " + target.getData().getUsername() + "."));
+        }
     }
 }

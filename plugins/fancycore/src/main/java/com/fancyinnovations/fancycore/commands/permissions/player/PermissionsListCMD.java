@@ -21,33 +21,30 @@ public class PermissionsListCMD extends CommandBase {
 
     @Override
     protected void executeSync(@NotNull CommandContext ctx) {
-        if (!ctx.isPlayer()) {
-            ctx.sendMessage(Message.raw("This command can only be executed by a player."));
-            return;
-        }
-
         FancyPlayer fp = FancyPlayerService.get().getByUUID(ctx.sender().getUuid());
-        if (fp == null) {
-            ctx.sendMessage(Message.raw("FancyPlayer not found."));
-            return;
-        }
-
-        // TODO: Permission check
-//        if (!fp.checkPermission("fancycore.commands.chatroom.delete")) {
-//            fp.sendMessage(Message.raw("You do not have permission to delete a chat room."));
-//            return;
-//        }
 
         FancyPlayer target = targetArg.get(ctx);
 
-        fp.sendMessage("Permissions for player " + target.getData().getUsername() + ":");
-        if (target.getData().getPermissions().isEmpty()) {
-            fp.sendMessage("  No permissions assigned.");
-            return;
-        }
+        if (ctx.isPlayer()) {
+            fp.sendMessage("Permissions for player " + target.getData().getUsername() + ":");
+            if (target.getData().getPermissions().isEmpty()) {
+                fp.sendMessage("  No permissions assigned.");
+                return;
+            }
 
-        for (Permission perm : target.getData().getPermissions()) {
-            fp.sendMessage("  - " + perm.getPermission() + "(enabled: " + perm.isEnabled() + ")");
+            for (Permission perm : target.getData().getPermissions()) {
+                fp.sendMessage("  - " + perm.getPermission() + "(enabled: " + perm.isEnabled() + ")");
+            }
+        } else {
+            ctx.sendMessage(Message.raw("Permissions for player " + target.getData().getUsername() + ":"));
+            if (target.getData().getPermissions().isEmpty()) {
+                ctx.sendMessage(Message.raw("  No permissions assigned."));
+                return;
+            }
+
+            for (Permission perm : target.getData().getPermissions()) {
+                ctx.sendMessage(Message.raw("  - " + perm.getPermission() + "(enabled: " + perm.isEnabled() + ")"));
+            }
         }
     }
 }
