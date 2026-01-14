@@ -256,6 +256,7 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         CommandManager.get().register(new TeleportDenyCMD());
         CommandManager.get().register(new TeleportBackCMD());
         CommandManager.get().register(new TeleportDeathBackCMD());
+        CommandManager.get().register(new SwitchWorldCMD());
 
         // player
         CommandManager.get().register(new PlayerListCMD());
