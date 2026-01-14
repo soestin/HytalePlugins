@@ -11,6 +11,7 @@ public class ToggleMessagesCMD extends CommandBase {
 
     public ToggleMessagesCMD() {
         super("togglemessages", "Toggle receiving private messages from all players.");
+        addAliases("toggledms");
     }
 
     @Override
