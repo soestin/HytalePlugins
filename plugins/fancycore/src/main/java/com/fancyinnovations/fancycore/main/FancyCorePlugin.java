@@ -204,7 +204,6 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         warpStorage = new WarpJsonStorage();
         warpService = new WarpServiceImpl(warpStorage);
 
-        warpStorage = new WarpJsonStorage();
         kitStorage = new KitStorage();
 
         SeedDefaultData.seed();
@@ -293,6 +292,7 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         CommandManager.get().register(new TeleportBackCMD());
         CommandManager.get().register(new TeleportDeathBackCMD());
         CommandManager.get().register(new SwitchWorldCMD());
+        CommandManager.get().register(new SwitchServerCMD());
         CommandManager.get().register(new SetSpawnCMD());
         CommandManager.get().register(new SpawnCMD());
         CommandManager.get().register(new SetHomeCMD());
