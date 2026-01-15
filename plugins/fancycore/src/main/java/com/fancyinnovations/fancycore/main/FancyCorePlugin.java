@@ -9,6 +9,8 @@ import com.fancyinnovations.fancycore.api.economy.CurrencyStorage;
 import com.fancyinnovations.fancycore.api.events.server.ServerStartedEvent;
 import com.fancyinnovations.fancycore.api.events.server.ServerStoppedEvent;
 import com.fancyinnovations.fancycore.api.events.service.EventService;
+import com.fancyinnovations.fancycore.api.inventory.KitsService;
+import com.fancyinnovations.fancycore.api.inventory.KitsStorage;
 import com.fancyinnovations.fancycore.api.moderation.PunishmentService;
 import com.fancyinnovations.fancycore.api.moderation.PunishmentStorage;
 import com.fancyinnovations.fancycore.api.permissions.PermissionService;
@@ -22,10 +24,10 @@ import com.fancyinnovations.fancycore.chat.storage.json.ChatJsonStorage;
 import com.fancyinnovations.fancycore.commands.chat.chatroom.ChatRoomCMD;
 import com.fancyinnovations.fancycore.commands.chat.message.*;
 import com.fancyinnovations.fancycore.commands.fancycore.FancyCoreCMD;
-import com.fancyinnovations.fancycore.commands.kits.CreateKitCMD;
-import com.fancyinnovations.fancycore.commands.kits.DeleteKitCMD;
-import com.fancyinnovations.fancycore.commands.kits.KitCMD;
-import com.fancyinnovations.fancycore.commands.kits.ListKitsCMD;
+import com.fancyinnovations.fancycore.commands.inventory.CreateKitCMD;
+import com.fancyinnovations.fancycore.commands.inventory.DeleteKitCMD;
+import com.fancyinnovations.fancycore.commands.inventory.KitCMD;
+import com.fancyinnovations.fancycore.commands.inventory.ListKitsCMD;
 import com.fancyinnovations.fancycore.commands.permissions.groups.GroupCMD;
 import com.fancyinnovations.fancycore.commands.permissions.player.PermissionsCMD;
 import com.fancyinnovations.fancycore.commands.player.PlayerListCMD;
@@ -34,7 +36,8 @@ import com.fancyinnovations.fancycore.config.FancyCoreConfigImpl;
 import com.fancyinnovations.fancycore.economy.service.CurrencyServiceImpl;
 import com.fancyinnovations.fancycore.economy.storage.json.CurrencyJsonStorage;
 import com.fancyinnovations.fancycore.events.EventServiceImpl;
-import com.fancyinnovations.fancycore.kits.storage.KitStorage;
+import com.fancyinnovations.fancycore.inventory.service.KitsServiceImpl;
+import com.fancyinnovations.fancycore.inventory.storage.json.KitsJsonStorage;
 import com.fancyinnovations.fancycore.listeners.PlayerChatListener;
 import com.fancyinnovations.fancycore.listeners.PlayerJoinListener;
 import com.fancyinnovations.fancycore.listeners.PlayerLeaveListener;
@@ -127,7 +130,8 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
     private WarpStorage warpStorage;
     private WarpService warpService;
 
-    private KitStorage kitStorage;
+    private KitsStorage kitsStorage;
+    private KitsService kitsService;
 
     public FancyCorePlugin(@Nonnull JavaPluginInit init) {
         super(init);
@@ -204,7 +208,8 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         warpStorage = new WarpJsonStorage();
         warpService = new WarpServiceImpl(warpStorage);
 
-        kitStorage = new KitStorage();
+        kitsStorage = new KitsJsonStorage();
+        kitsService = new KitsServiceImpl(kitsStorage);
 
         SeedDefaultData.seed();
 
@@ -449,7 +454,14 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         return warpStorage;
     }
 
-    public KitStorage getKitStorage() {
-        return kitStorage;
+    @Override
+    public KitsStorage getKitsStorage() {
+        return kitsStorage;
     }
+
+    @Override
+    public KitsService getKitsService() {
+        return kitsService;
+    }
+
 }

@@ -5,6 +5,8 @@ import com.fancyinnovations.fancycore.api.chat.ChatStorage;
 import com.fancyinnovations.fancycore.api.economy.CurrencyService;
 import com.fancyinnovations.fancycore.api.economy.CurrencyStorage;
 import com.fancyinnovations.fancycore.api.events.service.EventService;
+import com.fancyinnovations.fancycore.api.inventory.KitsService;
+import com.fancyinnovations.fancycore.api.inventory.KitsStorage;
 import com.fancyinnovations.fancycore.api.moderation.PunishmentService;
 import com.fancyinnovations.fancycore.api.moderation.PunishmentStorage;
 import com.fancyinnovations.fancycore.api.permissions.PermissionService;
@@ -36,41 +38,37 @@ public interface FancyCore {
 
     @ApiStatus.Internal
     FancyPlayerStorage getPlayerStorage();
-
     FancyPlayerService getPlayerService();
 
     @ApiStatus.Internal
     PunishmentStorage getPunishmentStorage();
-
     PunishmentService getPunishmentService();
 
     @ApiStatus.Internal
     CurrencyStorage getCurrencyStorage();
-
     CurrencyService getCurrencyService();
 
     @ApiStatus.Internal
     PermissionStorage getPermissionStorage();
-
     PermissionService getPermissionService();
 
     @ApiStatus.Internal
     ChatStorage getChatStorage();
-
     ChatService getChatService();
 
     TeleportRequestService getTeleportRequestService();
 
+    @ApiStatus.Internal
+    SpawnStorage getSpawnStorage();
     SpawnService getSpawnService();
 
     @ApiStatus.Internal
-    SpawnStorage getSpawnStorage();
-
+    WarpStorage getWarpStorage();
     WarpService getWarpService();
 
     @ApiStatus.Internal
-    WarpStorage getWarpStorage();
-
+    KitsStorage getKitsStorage();
+    KitsService getKitsService();
 
     @ApiStatus.Internal
     class InstanceHolder {
