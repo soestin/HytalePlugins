@@ -68,7 +68,7 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
                         CHAT_FORMAT_PATH,
                         "The default chat format for messages.",
                         false,
-                        "<%player_nickname%> %message%",
+                        "[%chat_room%] %player_group_prefix% %player_nickname%&7: %message%",
                         false,
                         String.class
                 )
@@ -90,7 +90,7 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
                         PRIVATE_MESSAGES_FORMAT_PATH,
                         "The format for private messages between players.",
                         false,
-                        "<%sender% -> %receiver%>: %message%",
+                        "&e<&6&l%sender% &e-> &6&l%receiver%&e> &7%message%",
                         false,
                         String.class
                 )
@@ -101,7 +101,7 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
                         JOIN_MESSAGE_PATH,
                         "The message displayed when a player joins the server.",
                         false,
-                        "&e%player_name% has joined the game.",
+                        "&6%player_name% &ehas joined the game.",
                         false,
                         String.class
                 )
@@ -112,7 +112,7 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
                         FIRST_JOIN_MESSAGE_PATH,
                         "The message displayed when a player joins the server for the first time.",
                         false,
-                        "&eWelcome %player_name% to the server for the first time!",
+                        "&eWelcome &6%player_name% &eto the server for the first time!",
                         false,
                         String.class
                 )
@@ -123,7 +123,7 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
                         LEAVE_MESSAGE_PATH,
                         "The message displayed when a player leaves the server.",
                         false,
-                        "&e%player_name% has left the game.",
+                        "&6%player_name% &ehas left the game.",
                         false,
                         String.class
                 )
