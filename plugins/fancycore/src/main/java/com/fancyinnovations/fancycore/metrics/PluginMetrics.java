@@ -33,6 +33,7 @@ public class PluginMetrics {
         this.metrics.add(new MetricSupplier<Double>("total_amount_players", this::totalAmountPlayers));
         this.metrics.add(new MetricSupplier<Double>("online_players", this::onlinePlayers));
         this.metrics.add(new MetricSupplier<String>("server_size_category", this::serverSizeCategory));
+        this.metrics.add(new MetricSupplier<String>("fancycore_version", this::pluginVersion));
 
         EXECUTOR.scheduleAtFixedRate(this::send, 5, 30, TimeUnit.SECONDS);
     }
@@ -68,6 +69,10 @@ public class PluginMetrics {
         }
 
         return "unknown";
+    }
+
+    private String pluginVersion() {
+        return FancyCorePlugin.get().getManifest().getVersion().toString();
     }
 
     /**
