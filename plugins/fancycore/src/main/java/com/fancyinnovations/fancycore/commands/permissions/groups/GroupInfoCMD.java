@@ -38,6 +38,7 @@ public class GroupInfoCMD extends CommandBase {
 
         fp.sendMessage("Group Info:");
         fp.sendMessage("- Name: " + group.getName());
+        fp.sendMessage("- Weight: " + group.getWeight());
         fp.sendMessage("- Prefix: " + (group.getPrefix() != null ? group.getPrefix() : "None"));
         fp.sendMessage("- Suffix: " + (group.getSuffix() != null ? group.getSuffix() : "None"));
         fp.sendMessage("- Parents: ");

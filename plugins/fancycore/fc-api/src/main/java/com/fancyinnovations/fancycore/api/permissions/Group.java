@@ -7,6 +7,10 @@ public interface Group {
 
     String getName();
 
+    int getWeight();
+
+    void setWeight(int weight);
+
     List<String> getParents();
 
     void addParent(String parent);

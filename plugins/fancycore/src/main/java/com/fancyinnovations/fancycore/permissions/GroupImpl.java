@@ -13,18 +13,21 @@ public class GroupImpl implements Group {
     private final String name;
     private final Set<String> parents;
     private final Set<UUID> members;
+    private int weight;
     private String prefix;
     private String suffix;
     private List<Permission> permissions;
 
     public GroupImpl(
             String name,
+            int weight,
             Set<String> parents,
             String prefix,
             String suffix,
             List<Permission> permissions,
             Set<UUID> members) {
         this.name = name;
+        this.weight = weight;
         this.parents = parents;
         this.prefix = prefix;
         this.suffix = suffix;
@@ -56,6 +59,16 @@ public class GroupImpl implements Group {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getWeight() {
+        return weight;
+    }
+
+    @Override
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override

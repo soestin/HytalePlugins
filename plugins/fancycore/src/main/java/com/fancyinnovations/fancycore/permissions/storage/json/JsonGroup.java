@@ -8,6 +8,7 @@ import java.util.*;
 
 public record JsonGroup (
         String name,
+        int weight,
         List<String> parents,
         String prefix,
         String suffix,
@@ -26,6 +27,7 @@ public record JsonGroup (
 
         return new JsonGroup(
                 group.getName(),
+                group.getWeight(),
                 group.getParents(),
                 group.getPrefix(),
                 group.getSuffix(),
@@ -56,6 +58,7 @@ public record JsonGroup (
 
         return new GroupImpl(
                 this.name,
+                this.weight,
                 parentsSet,
                 this.prefix,
                 this.suffix,

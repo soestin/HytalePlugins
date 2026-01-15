@@ -1,6 +1,5 @@
 package com.fancyinnovations.fancycore.commands.permissions.groups;
 
-import com.fancyinnovations.fancycore.api.permissions.Group;
 import com.fancyinnovations.fancycore.api.permissions.PermissionService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
@@ -30,8 +29,9 @@ public class GroupListCMD extends CommandBase {
         }
 
         fp.sendMessage("Groups: ");
-        for (Group group : PermissionService.get().getGroups()) {
-            fp.sendMessage("- " + group.getName());
-        }
+
+        PermissionService.get().getGroups().stream()
+                .sorted((g1, g2) -> Integer.compare(g2.getWeight(), g1.getWeight()))
+                .forEach(group -> fp.sendMessage("- " + group.getName()));
     }
 }

@@ -1,10 +1,9 @@
 package com.fancyinnovations.fancycore.commands.permissions.groups;
 
 import com.fancyinnovations.fancycore.api.permissions.Group;
-import com.fancyinnovations.fancycore.api.permissions.PermissionService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
-import com.fancyinnovations.fancycore.permissions.GroupImpl;
+import com.fancyinnovations.fancycore.main.FancyCorePlugin;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
@@ -12,16 +11,14 @@ import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+public class GroupSetWeightCMD extends CommandBase {
 
-public class GroupCreateCMD extends CommandBase {
+    protected final RequiredArg<Group> groupArg = this.withRequiredArg(GroupArg.NAME, GroupArg.DESCRIPTION, GroupArg.TYPE);
+    protected final RequiredArg<Integer> weightArg = this.withRequiredArg("weight", "the new weight for the group", ArgTypes.INTEGER);
 
-    protected final RequiredArg<String> groupNameArg = this.withRequiredArg("group name", GroupArg.DESCRIPTION, ArgTypes.STRING);
-
-    protected GroupCreateCMD() {
-        super("create", "Create a new group");
-        requirePermission("fancycore.commands.groups.create");
+    protected GroupSetWeightCMD() {
+        super("setweight", "Sets a group's weight");
+        requirePermission("fancycore.commands.groups.setweight");
     }
 
     @Override
@@ -37,25 +34,13 @@ public class GroupCreateCMD extends CommandBase {
             return;
         }
 
-        String name = groupNameArg.get(ctx);
+        Group group = groupArg.get(ctx);
+        int weight = weightArg.get(ctx);
 
-        if (PermissionService.get().getGroup(name) != null) {
-            fp.sendMessage("A group with the name " + name + " already exists.");
-            return;
-        }
+        group.setWeight(weight);
 
-        Group group = new GroupImpl(
-                name,
-                0,
-                new HashSet<>(),
-                "",
-                "",
-                new ArrayList<>(),
-                new HashSet<>()
-        );
+        FancyCorePlugin.get().getPermissionStorage().storeGroup(group);
 
-        PermissionService.get().addGroup(group);
-
-        fp.sendMessage("Group " + name + " has been created.");
+        fp.sendMessage("Set prefix of group " + group.getName() + " to " + weight + ".");
     }
 }

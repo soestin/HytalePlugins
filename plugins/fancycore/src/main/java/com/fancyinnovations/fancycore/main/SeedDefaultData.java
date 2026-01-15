@@ -32,6 +32,7 @@ public class SeedDefaultData {
     private static void seedGroups() {
         Group memberGroup = new GroupImpl(
                 "member",
+                0,
                 new HashSet<>(),
                 "[Member]",
                 "",
@@ -42,6 +43,7 @@ public class SeedDefaultData {
 
         Group moderatorGroup = new GroupImpl(
                 "moderator",
+                100,
                 new HashSet<>(),
                 "[Moderator]",
                 "",
@@ -52,6 +54,7 @@ public class SeedDefaultData {
 
         Group ownerGroup = new GroupImpl(
                 "owner",
+                200,
                 new HashSet<>(),
                 "[Owner]",
                 "",
