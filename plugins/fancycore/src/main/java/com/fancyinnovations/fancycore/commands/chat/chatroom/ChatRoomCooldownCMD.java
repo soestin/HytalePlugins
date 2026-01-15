@@ -20,7 +20,7 @@ public class ChatRoomCooldownCMD extends CommandBase {
 
     protected ChatRoomCooldownCMD() {
         super("cooldown", "Set the chat cooldown for a chat room");
-        requirePermission("fancycore.commands.chatroom.cooldown");
+        requirePermission("fancycore.commands.chatrooms.cooldown");
     }
 
     @Override

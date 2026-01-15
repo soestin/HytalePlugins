@@ -16,7 +16,7 @@ public class ChatRoomMuteCMD extends CommandBase {
 
     protected ChatRoomMuteCMD() {
         super("mute", "Mute the chat of a chat room");
-        requirePermission("fancycore.commands.chatroom.mute");
+        requirePermission("fancycore.commands.chatrooms.mute");
     }
 
     @Override

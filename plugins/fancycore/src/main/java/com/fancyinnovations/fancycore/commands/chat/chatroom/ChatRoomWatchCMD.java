@@ -15,7 +15,7 @@ public class ChatRoomWatchCMD extends CommandBase {
 
     protected ChatRoomWatchCMD() {
         super("watch", "Start watching a chat room. You will receive messages from this chat room");
-        requirePermission("fancycore.commands.chatroom.watch");
+        requirePermission("fancycore.commands.chatrooms.watch");
     }
 
     @Override

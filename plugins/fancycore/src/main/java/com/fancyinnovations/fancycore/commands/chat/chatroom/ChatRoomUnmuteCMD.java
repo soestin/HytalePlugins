@@ -16,7 +16,7 @@ public class ChatRoomUnmuteCMD extends CommandBase {
 
     protected ChatRoomUnmuteCMD() {
         super("unmute", "Unmute the chat of a chat room");
-        requirePermission("fancycore.commands.chatroom.unmute");
+        requirePermission("fancycore.commands.chatrooms.unmute");
     }
 
     @Override

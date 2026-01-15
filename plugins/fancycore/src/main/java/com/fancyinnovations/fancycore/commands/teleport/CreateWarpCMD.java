@@ -2,11 +2,14 @@ package com.fancyinnovations.fancycore.commands.teleport;
 
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
+import com.fancyinnovations.fancycore.main.FancyCorePlugin;
+import com.fancyinnovations.fancycore.teleport.storage.WarpStorage;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
+import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
@@ -16,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CreateWarpCMD extends CommandBase {
 
-    protected final RequiredArg<String> nameArg = this.withRequiredArg("", "Warp name", com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes.STRING);
+    protected final RequiredArg<String> nameArg = this.withRequiredArg("warp", "name of the warp", ArgTypes.STRING);
 
     public CreateWarpCMD() {
         super("createwarp", "Creates a warp point at your current location with the specified name");
@@ -43,8 +46,7 @@ public class CreateWarpCMD extends CommandBase {
         }
 
         // Check if warp already exists
-        com.fancyinnovations.fancycore.teleport.storage.WarpStorage warpStorage = 
-                com.fancyinnovations.fancycore.main.FancyCorePlugin.get().getWarpStorage();
+        WarpStorage warpStorage = FancyCorePlugin.get().getWarpStorage();
         if (warpStorage.warpExists(warpName)) {
             ctx.sendMessage(Message.raw("A warp with the name \"" + warpName + "\" already exists."));
             return;

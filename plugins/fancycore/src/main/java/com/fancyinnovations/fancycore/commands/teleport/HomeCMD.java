@@ -10,6 +10,7 @@ import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.OptionalArg;
+import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 public class HomeCMD extends CommandBase {
 
-    protected final OptionalArg<String> nameArg = this.withOptionalArg("", "Home name", com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes.STRING);
+    protected final OptionalArg<String> nameArg = this.withOptionalArg("home", "specific home name", ArgTypes.STRING);
 
     public HomeCMD() {
         super("home", "Teleports you to your home point with the specified name or the first home if no name is provided");

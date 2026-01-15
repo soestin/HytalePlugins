@@ -5,6 +5,7 @@ import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
+import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 
 public class DeleteHomeCMD extends CommandBase {
 
-    protected final RequiredArg<String> nameArg = this.withRequiredArg("", "Home name", com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes.STRING);
+    protected final RequiredArg<String> nameArg = this.withRequiredArg("", "Home name", ArgTypes.STRING);
 
     public DeleteHomeCMD() {
         super("deletehome", "Deletes your home point with the specified name");

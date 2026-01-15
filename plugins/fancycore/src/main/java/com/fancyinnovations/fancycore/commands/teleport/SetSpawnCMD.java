@@ -1,4 +1,6 @@
 package com.fancyinnovations.fancycore.commands.teleport;
+import com.fancyinnovations.fancycore.main.FancyCorePlugin;
+import com.fancyinnovations.fancycore.teleport.storage.SpawnLocationStorage;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
@@ -50,8 +52,7 @@ public class SetSpawnCMD extends CommandBase {
             }
 
             // Save spawn location to our storage
-            com.fancyinnovations.fancycore.teleport.storage.SpawnLocationStorage spawnStorage = 
-                    com.fancyinnovations.fancycore.main.FancyCorePlugin.get().getSpawnLocationStorage();
+            SpawnLocationStorage spawnStorage = FancyCorePlugin.get().getSpawnLocationStorage();
             spawnStorage.setSpawnLocation(
                     senderWorld.getName(),
                     senderTransformComponent.getPosition().getX(),

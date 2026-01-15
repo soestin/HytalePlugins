@@ -1,6 +1,8 @@
 package com.fancyinnovations.fancycore.commands.teleport;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
+import com.fancyinnovations.fancycore.main.FancyCorePlugin;
+import com.fancyinnovations.fancycore.teleport.storage.SpawnLocationStorage;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Transform;
@@ -52,8 +54,7 @@ public class SpawnCMD extends CommandBase {
         World currentWorld = ((EntityStore) senderStore.getExternalData()).getWorld();
 
         // Get spawn location from storage
-        com.fancyinnovations.fancycore.teleport.storage.SpawnLocationStorage spawnStorage = 
-                com.fancyinnovations.fancycore.main.FancyCorePlugin.get().getSpawnLocationStorage();
+        SpawnLocationStorage spawnStorage = FancyCorePlugin.get().getSpawnLocationStorage();
         java.util.Map<String, Object> spawnData = spawnStorage.getSpawnLocation();
 
         if (spawnData == null) {

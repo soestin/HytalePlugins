@@ -17,7 +17,7 @@ public class ChatRoomDeleteCMD extends CommandBase {
 
     protected ChatRoomDeleteCMD() {
         super("delete", "Deletes a chat room");
-        requirePermission("fancycore.commands.chatroom.delete");
+        requirePermission("fancycore.commands.chatrooms.delete");
     }
 
     @Override

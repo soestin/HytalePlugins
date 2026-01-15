@@ -16,7 +16,7 @@ public class ChatRoomClearChatCMD extends CommandBase {
     protected ChatRoomClearChatCMD() {
         super("clearchat", "Clear the chat of a chat room");
         addAliases("cc", "clear");
-        requirePermission("fancycore.commands.chatroom.clearchat");
+        requirePermission("fancycore.commands.chatrooms.clearchat");
     }
 
     @Override

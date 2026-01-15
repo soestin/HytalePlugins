@@ -17,7 +17,7 @@ public class ChatRoomCreateCMD extends CommandBase {
 
     protected ChatRoomCreateCMD() {
         super("create", "Create a new chat room");
-        requirePermission("fancycore.commands.chatroom.create");
+        requirePermission("fancycore.commands.chatrooms.create");
     }
 
     @Override

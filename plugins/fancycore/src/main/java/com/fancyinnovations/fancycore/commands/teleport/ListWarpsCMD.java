@@ -1,5 +1,7 @@
 package com.fancyinnovations.fancycore.commands.teleport;
 
+import com.fancyinnovations.fancycore.main.FancyCorePlugin;
+import com.fancyinnovations.fancycore.teleport.storage.WarpStorage;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
@@ -19,8 +21,7 @@ public class ListWarpsCMD extends CommandBase {
 
     @Override
     protected void executeSync(@NotNull CommandContext ctx) {
-        com.fancyinnovations.fancycore.teleport.storage.WarpStorage warpStorage = 
-                com.fancyinnovations.fancycore.main.FancyCorePlugin.get().getWarpStorage();
+        WarpStorage warpStorage = FancyCorePlugin.get().getWarpStorage();
         
         Map<String, Map<String, Object>> warps = warpStorage.getAllWarps();
 

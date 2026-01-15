@@ -10,6 +10,7 @@ import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
+import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 public class WarpCMD extends CommandBase {
 
-    protected final RequiredArg<String> nameArg = this.withRequiredArg("", "Warp name", com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes.STRING);
+    protected final RequiredArg<String> nameArg = this.withRequiredArg("warp", "the name of the warp", ArgTypes.STRING);
 
     public WarpCMD() {
         super("warp", "Teleports you to the warp point with the specified name");

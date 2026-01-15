@@ -7,7 +7,7 @@ public class ChatRoomCMD extends AbstractCommandCollection {
     public ChatRoomCMD() {
         super("chatroom", "Manage chat rooms");
         addAliases("cr");
-        requirePermission("fancycore.commands.chatroom");
+        requirePermission("fancycore.commands.chatrooms");
 
         addSubCommand(new ChatRoomInfoCMD());
         addSubCommand(new ChatRoomListCMD());
