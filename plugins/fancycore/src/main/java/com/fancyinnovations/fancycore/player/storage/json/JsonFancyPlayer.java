@@ -8,9 +8,7 @@ import com.fancyinnovations.fancycore.api.player.Home;
 import com.fancyinnovations.fancycore.player.FancyPlayerDataImpl;
 import com.google.gson.annotations.SerializedName;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public record JsonFancyPlayer(
         String uuid,
@@ -53,7 +51,7 @@ public record JsonFancyPlayer(
                 permissions,
                 player.getGroups(),
                 player.getNickname(),
-                Integer.toHexString(player.getChatColor().getRGB()),
+                player.getChatColor(),
                 ignoredPlayers,
                 player.isPrivateMessagesEnabled(),
                 balances,
@@ -105,7 +103,7 @@ public record JsonFancyPlayer(
                 perms,
                 groups,
                 nickname,
-                new Color((int) Long.parseLong(chatColor, 16), true),
+                chatColor,
                 ignoredPlayerUUIDs,
                 privateMessagesEnabled,
                 balances,

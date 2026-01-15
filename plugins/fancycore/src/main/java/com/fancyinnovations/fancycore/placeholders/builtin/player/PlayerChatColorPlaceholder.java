@@ -2,7 +2,6 @@ package com.fancyinnovations.fancycore.placeholders.builtin.player;
 
 import com.fancyinnovations.fancycore.api.placeholders.PlaceholderProvider;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
-import com.fancyinnovations.fancycore.utils.ColorUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +14,7 @@ public class PlayerChatColorPlaceholder implements PlaceholderProvider {
 
     @Override
     public String getName() {
-        return "Player chat color (hex)";
+        return "Player chat color";
     }
 
     @Override
@@ -25,6 +24,6 @@ public class PlayerChatColorPlaceholder implements PlaceholderProvider {
 
     @Override
     public String parse(@Nullable FancyPlayer player, @NotNull String input) {
-        return ColorUtils.formatColorInHex(player.getData().getChatColor());
+        return player.getData().getChatColor();
     }
 }

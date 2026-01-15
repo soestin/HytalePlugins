@@ -4,7 +4,6 @@ import com.fancyinnovations.fancycore.api.economy.Currency;
 import com.fancyinnovations.fancycore.api.permissions.Permission;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -44,9 +43,9 @@ public interface FancyPlayerData {
 
     void setNickname(String nickname);
 
-    Color getChatColor();
+    String getChatColor();
 
-    void setChatColor(Color chatColor);
+    void setChatColor(String chatColor);
 
     List<UUID> getIgnoredPlayers();
 

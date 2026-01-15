@@ -9,7 +9,6 @@ import com.fancyinnovations.fancycore.permissions.PermissionImpl;
 import com.fancyinnovations.fancycore.player.storage.json.JsonFancyPlayer;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +24,7 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
     private UUID uuid;
     private String username;
     private String nickname;
-    private Color chatColor;
+    private String chatColor;
     private List<UUID> ignoredPlayers;
     private boolean enabledPrivateMessages;
     private Map<Currency, Double> balances;
@@ -42,7 +41,7 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
         this.permissions = new ArrayList<>();
         this.groups = new ArrayList<>();
         this.nickname = username; // default nickname is the username
-        this.chatColor = Color.WHITE;
+        this.chatColor = "";
         this.ignoredPlayers = new ArrayList<>();
         this.enabledPrivateMessages = true;
         this.balances = new ConcurrentHashMap<>();
@@ -60,7 +59,7 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
             List<Permission> permissions,
             List<String> groups,
             String nickname,
-            Color chatColor,
+            String chatColor,
             List<UUID> ignoredPlayers,
             boolean enabledPrivateMessages,
             Map<Currency, Double> balances,
@@ -177,12 +176,12 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
     }
 
     @Override
-    public Color getChatColor() {
+    public String getChatColor() {
         return chatColor;
     }
 
     @Override
-    public void setChatColor(Color chatColor) {
+    public void setChatColor(String chatColor) {
         this.chatColor = chatColor;
         this.isDirty = true;
     }
