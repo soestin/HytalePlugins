@@ -26,6 +26,7 @@ import com.fancyinnovations.fancycore.chat.storage.json.ChatJsonStorage;
 import com.fancyinnovations.fancycore.commands.chat.ChatColorCMD;
 import com.fancyinnovations.fancycore.commands.chat.chatroom.ChatRoomCMD;
 import com.fancyinnovations.fancycore.commands.chat.message.*;
+import com.fancyinnovations.fancycore.commands.economy.*;
 import com.fancyinnovations.fancycore.commands.fancycore.FancyCoreCMD;
 import com.fancyinnovations.fancycore.commands.inventory.*;
 import com.fancyinnovations.fancycore.commands.permissions.groups.GroupCMD;
@@ -342,6 +343,13 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         CommandManager.get().register(new CreateBackpackCMD());
         CommandManager.get().register(new DeleteBackpackCMD());
         CommandManager.get().register(new ListBackpacksCMD());
+
+        // economy
+        CommandManager.get().register(new BalanceCMD());
+        CommandManager.get().register(new PayCMD());
+        CommandManager.get().register(new AddMoneyCMD());
+        CommandManager.get().register(new RemoveMoneyCMD());
+        CommandManager.get().register(new SetMoneyCMD());
     }
 
     public void registerListeners() {
