@@ -33,7 +33,7 @@ public class BackpackCMD extends AbstractPlayerCommand {
 
     public BackpackCMD() {
         super("backpack", "Opens the specified backpack of the targeted player");
-        addAliases("bp");
+        addAliases("bp", "virtualbackback", "vbp");
         requirePermission("fancycore.commands.backpack");
     }
 

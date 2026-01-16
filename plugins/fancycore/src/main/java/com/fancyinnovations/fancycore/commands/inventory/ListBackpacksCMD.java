@@ -15,7 +15,7 @@ public class ListBackpacksCMD extends CommandBase {
 
     public ListBackpacksCMD() {
         super("listbackpacks", "Lists all available backpacks");
-        addAliases("backpacks");
+        addAliases("backpacks", "listvirtualbackpacks", "listbp");
         requirePermission("fancycore.commands.listbackpacks");
     }
 
