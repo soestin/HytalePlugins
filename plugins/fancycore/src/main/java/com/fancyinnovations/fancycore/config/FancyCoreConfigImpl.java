@@ -18,6 +18,7 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
     public static final String FIRST_JOIN_MESSAGE_PATH = "settings.first_join_message";
     public static final String LEAVE_MESSAGE_PATH = "settings.leave_message";
     public static final String SHOULD_JOIN_AT_SPAWN_PATH = "settings.join_at_spawn";
+    public static final String DEFAULT_GROUP_NAME_PATH = "settings.default_group_name";
 
     public static final String DISABLE_PERMISSION_PROVIDER_PATH = "experimental_features.disable_permission_provider";
 
@@ -142,6 +143,19 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
 
         config.addField(
                 new ConfigField<>(
+                        DEFAULT_GROUP_NAME_PATH,
+                        "The name of the default group assigned to new players.",
+                        false,
+                        "default",
+                        false,
+                        String.class
+                )
+        );
+
+        // Experimental Features
+
+        config.addField(
+                new ConfigField<>(
                         DISABLE_PERMISSION_PROVIDER_PATH,
                         "If true, FancyCore will not register its built-in permission provider.",
                         false,
@@ -212,6 +226,11 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
     @Override
     public boolean shouldJoinAtSpawn() {
         return config.get(SHOULD_JOIN_AT_SPAWN_PATH);
+    }
+
+    @Override
+    public String getDefaultGroupName() {
+        return config.get(DEFAULT_GROUP_NAME_PATH);
     }
 
     @Override

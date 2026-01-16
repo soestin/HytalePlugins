@@ -25,6 +25,8 @@ public interface FancyCoreConfig {
 
     boolean shouldJoinAtSpawn();
 
+    String getDefaultGroupName();
+
     // Experimental features
     boolean disablePermissionProvider();
 

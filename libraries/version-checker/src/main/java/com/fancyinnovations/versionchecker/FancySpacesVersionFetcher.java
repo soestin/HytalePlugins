@@ -23,10 +23,15 @@ public class FancySpacesVersionFetcher implements VersionFetcher {
     public FetchedVersion latestVersion() {
         Version version = fs.getVersionService().getLatestVersion(spaceID, "hytale_plugin", null);
 
+        String downloadUrl = "N/A";
+        if (version.files() != null && !version.files().isEmpty()) {
+            downloadUrl = version.files().getFirst().url();
+        }
+
         return new FetchedVersion(
                 version.name(),
                 version.publishedAtMillis(),
-                version.files().getFirst().url()
+                downloadUrl
         );
     }
 

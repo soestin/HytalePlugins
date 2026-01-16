@@ -4,9 +4,7 @@ import com.fancyinnovations.fancycore.api.FancyCore;
 import com.fancyinnovations.fancycore.api.permissions.Group;
 import com.fancyinnovations.fancycore.api.permissions.Permission;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class GroupImpl implements Group {
 
@@ -28,11 +26,11 @@ public class GroupImpl implements Group {
             Set<UUID> members) {
         this.name = name;
         this.weight = weight;
-        this.parents = parents;
+        this.parents = new HashSet<>(parents);
         this.prefix = prefix;
         this.suffix = suffix;
-        this.permissions = permissions;
-        this.members = members;
+        this.permissions = new ArrayList<>(permissions);
+        this.members = new HashSet<>(members);
     }
 
     @Override

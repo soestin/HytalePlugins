@@ -3,11 +3,14 @@ package com.fancyinnovations.fancycore.listeners;
 import com.fancyinnovations.fancycore.api.FancyCore;
 import com.fancyinnovations.fancycore.api.events.player.PlayerJoinedEvent;
 import com.fancyinnovations.fancycore.api.moderation.Punishment;
+import com.fancyinnovations.fancycore.api.permissions.Group;
+import com.fancyinnovations.fancycore.api.permissions.PermissionService;
 import com.fancyinnovations.fancycore.api.placeholders.PlaceholderService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.teleport.Location;
 import com.fancyinnovations.fancycore.api.teleport.SpawnService;
 import com.fancyinnovations.fancycore.main.FancyCorePlugin;
+import com.fancyinnovations.fancycore.permissions.GroupImpl;
 import com.fancyinnovations.fancycore.player.FancyPlayerDataImpl;
 import com.fancyinnovations.fancycore.player.FancyPlayerImpl;
 import com.fancyinnovations.fancycore.player.service.FancyPlayerServiceImpl;
@@ -23,6 +26,10 @@ import com.hypixel.hytale.server.core.modules.entity.component.TransformComponen
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class PlayerJoinListener {
 
     private final static FancyPlayerServiceImpl playerService = (FancyPlayerServiceImpl) FancyCorePlugin.get().getPlayerService();
@@ -32,10 +39,29 @@ public class PlayerJoinListener {
 
         FancyPlayerImpl fp = (FancyPlayerImpl) playerService.getByUUID(event.getPlayerRef().getUuid());
         if (fp == null) {
+            FancyPlayerDataImpl newFancyPlayerData = new FancyPlayerDataImpl(event.getPlayerRef().getUuid(), event.getPlayerRef().getUsername());
+
+            // Default group assignment
+            Group defaultGroup = PermissionService.get().getGroup(FancyCorePlugin.get().getConfig().getDefaultGroupName());
+            if (defaultGroup == null) {
+                defaultGroup = new GroupImpl(
+                        FancyCorePlugin.get().getConfig().getDefaultGroupName(),
+                        0,
+                        new HashSet<>(),
+                        "",
+                        "",
+                        List.of(),
+                        Set.of(newFancyPlayerData.getUUID())
+                );
+                PermissionService.get().addGroup(defaultGroup);
+            }
+            newFancyPlayerData.addGroup(defaultGroup.getName());
+
             fp = new FancyPlayerImpl(
-                    new FancyPlayerDataImpl(event.getPlayerRef().getUuid(), event.getPlayerRef().getUsername()),
+                    newFancyPlayerData,
                     event.getPlayerRef()
             );
+            FancyCorePlugin.get().getPlayerStorage().savePlayer(fp.getData());
             firstJoin = true;
         }
         fp.setPlayer(event.getPlayerRef());
