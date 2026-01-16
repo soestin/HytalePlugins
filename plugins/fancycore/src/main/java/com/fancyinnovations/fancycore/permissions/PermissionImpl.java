@@ -12,6 +12,10 @@ public class PermissionImpl implements Permission {
         this.enabled = enabled;
     }
 
+    public PermissionImpl(String permission) {
+        this(permission, true);
+    }
+
     @Override
     public String getPermission() {
         return permission;

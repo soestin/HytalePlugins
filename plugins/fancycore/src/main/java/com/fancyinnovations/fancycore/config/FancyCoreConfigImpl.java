@@ -69,7 +69,7 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
                         CHAT_FORMAT_PATH,
                         "The default chat format for messages.",
                         false,
-                        "[%chat_room%] %player_group_prefix% %player_nickname%&7: %message%",
+                        "&6[&e%chat_room%&6]&r %player_group_prefix% %player_nickname%&7: &r%message%",
                         false,
                         String.class
                 )
@@ -91,7 +91,7 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
                         PRIVATE_MESSAGES_FORMAT_PATH,
                         "The format for private messages between players.",
                         false,
-                        "&e<&6&l%sender% &e-> &6&l%receiver%&e> &7%message%",
+                        "&e<&6&l%sender% &e-> &6&l%receiver%&e> &r%message%",
                         false,
                         String.class
                 )
@@ -146,7 +146,7 @@ public class FancyCoreConfigImpl implements FancyCoreConfig {
                         DEFAULT_GROUP_NAME_PATH,
                         "The name of the default group assigned to new players.",
                         false,
-                        "default",
+                        "member",
                         false,
                         String.class
                 )

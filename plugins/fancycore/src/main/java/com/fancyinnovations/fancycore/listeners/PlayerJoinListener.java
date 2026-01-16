@@ -10,7 +10,7 @@ import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.teleport.Location;
 import com.fancyinnovations.fancycore.api.teleport.SpawnService;
 import com.fancyinnovations.fancycore.main.FancyCorePlugin;
-import com.fancyinnovations.fancycore.permissions.GroupImpl;
+import com.fancyinnovations.fancycore.main.SeedDefaultData;
 import com.fancyinnovations.fancycore.player.FancyPlayerDataImpl;
 import com.fancyinnovations.fancycore.player.FancyPlayerImpl;
 import com.fancyinnovations.fancycore.player.service.FancyPlayerServiceImpl;
@@ -26,10 +26,6 @@ import com.hypixel.hytale.server.core.modules.entity.component.TransformComponen
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 public class PlayerJoinListener {
 
     private final static FancyPlayerServiceImpl playerService = (FancyPlayerServiceImpl) FancyCorePlugin.get().getPlayerService();
@@ -44,15 +40,8 @@ public class PlayerJoinListener {
             // Default group assignment
             Group defaultGroup = PermissionService.get().getGroup(FancyCorePlugin.get().getConfig().getDefaultGroupName());
             if (defaultGroup == null) {
-                defaultGroup = new GroupImpl(
-                        FancyCorePlugin.get().getConfig().getDefaultGroupName(),
-                        0,
-                        new HashSet<>(),
-                        "",
-                        "",
-                        List.of(),
-                        Set.of(newFancyPlayerData.getUUID())
-                );
+                defaultGroup = SeedDefaultData.DEFAULT_GROUP;
+                defaultGroup.addMember(event.getPlayerRef().getUuid());
                 PermissionService.get().addGroup(defaultGroup);
             }
             newFancyPlayerData.addGroup(defaultGroup.getName());
