@@ -27,6 +27,7 @@ import com.fancyinnovations.fancycore.commands.chat.ChatColorCMD;
 import com.fancyinnovations.fancycore.commands.chat.chatroom.ChatRoomCMD;
 import com.fancyinnovations.fancycore.commands.chat.message.*;
 import com.fancyinnovations.fancycore.commands.economy.*;
+import com.fancyinnovations.fancycore.commands.economy.currency.CurrencyCMD;
 import com.fancyinnovations.fancycore.commands.fancycore.FancyCoreCMD;
 import com.fancyinnovations.fancycore.commands.inventory.*;
 import com.fancyinnovations.fancycore.commands.permissions.groups.GroupCMD;
@@ -345,6 +346,7 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         CommandManager.get().register(new ListBackpacksCMD());
 
         // economy
+        CommandManager.get().register(new CurrencyCMD());
         CommandManager.get().register(new BalanceCMD());
         CommandManager.get().register(new PayCMD());
         CommandManager.get().register(new AddMoneyCMD());
