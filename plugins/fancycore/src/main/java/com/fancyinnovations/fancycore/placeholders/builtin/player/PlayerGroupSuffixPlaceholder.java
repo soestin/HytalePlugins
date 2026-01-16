@@ -38,6 +38,6 @@ public class PlayerGroupSuffixPlaceholder implements PlaceholderProvider {
             return "N/A";
         }
 
-        return highestGroup.getSuffix() + "&r";
+        return highestGroup.getSuffix();
     }
 }

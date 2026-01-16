@@ -38,6 +38,6 @@ public class PlayerGroupPrefixPlaceholder implements PlaceholderProvider {
             return "N/A";
         }
 
-        return highestGroup.getPrefix() + "&r";
+        return highestGroup.getPrefix();
     }
 }
