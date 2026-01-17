@@ -31,7 +31,7 @@ public class PunishmentServiceImpl implements PunishmentService {
                 .addMessage("punishments.mute.perm.default_reason", "You have been muted for: {reason}.")
                 .addMessage("punishments.mute.temp.default_reason", "You have been temporarily muted for: {reason}. Duration: {duration}.")
                 .addMessage("punishments.kick.default_reason", "You have been kicked from the server for: {reason}.")
-                .addMessage("punishments.ban.perm.default_reason", "You have been banned from the server for: {reason}.")
+                .addMessage("punishments.ban.perm.default_reason", "You have been banned from the server.\nReason: {reason}.")
                 .addMessage("punishments.ban.temp.default_reason", "You have been temporarily banned from the server for: {reason}. Duration: {duration}.")
         ;
     }

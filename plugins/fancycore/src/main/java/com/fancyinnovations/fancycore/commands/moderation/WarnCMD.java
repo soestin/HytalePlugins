@@ -13,13 +13,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class MuteCMD extends CommandBase {
+public class WarnCMD extends CommandBase {
 
-    protected final RequiredArg<FancyPlayer> targetArg = this.withRequiredArg("target", "The player to mute", FancyCoreArgs.PLAYER);
-    protected final RequiredArg<List<String>> reasonArg = this.withListRequiredArg("reason", "The reason for the mute", ArgTypes.STRING);
+    protected final RequiredArg<FancyPlayer> targetArg = this.withRequiredArg("target", "The player to warn", FancyCoreArgs.PLAYER);
+    protected final RequiredArg<List<String>> reasonArg = this.withListRequiredArg("reason", "The reason for the warning", ArgTypes.STRING);
 
-    public MuteCMD() {
-        super("mute", "Permanently mutes a player from the server");
+    public WarnCMD() {
+        super("warn", "Warns a player");
         setAllowsExtraArguments(true);
     }
 
@@ -52,8 +52,8 @@ public class MuteCMD extends CommandBase {
         }
         String reason = reasonBuilder.toString();
 
-        PunishmentService.get().mutePlayer(target, fp, reason);
+        PunishmentService.get().warnPlayer(target, fp, reason);
 
-        fp.sendMessage("Successfully permanently muted " + target.getData().getUsername() + " for: " + reason);
+        fp.sendMessage("Successfully warned " + target.getData().getUsername() + " for: " + reason);
     }
 }

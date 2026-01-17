@@ -66,7 +66,7 @@ public class PlayerJoinListener {
 
         Punishment punishment = fp.isBanned();
         if (punishment != null) {
-            event.getPlayerRef().getPacketHandler().disconnect("You are banned from this server."); //TODO (I18N): replace with translated message (include ban reason and duration)
+            event.getPlayerRef().getPacketHandler().disconnect("You are banned from this server.\nReason: " + punishment.reason()); //TODO (I18N): replace with translated message (include ban reason and duration)
             return;
         }
 
