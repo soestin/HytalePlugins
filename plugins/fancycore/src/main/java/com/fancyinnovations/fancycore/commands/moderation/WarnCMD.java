@@ -20,6 +20,7 @@ public class WarnCMD extends CommandBase {
 
     public WarnCMD() {
         super("warn", "Warns a player");
+        requirePermission("fancycore.commands.warn");
         setAllowsExtraArguments(true);
     }
 

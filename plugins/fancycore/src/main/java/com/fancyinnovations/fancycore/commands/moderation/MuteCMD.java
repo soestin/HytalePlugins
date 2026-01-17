@@ -20,6 +20,7 @@ public class MuteCMD extends CommandBase {
 
     public MuteCMD() {
         super("mute", "Permanently mutes a player from the server");
+        requirePermission("fancycore.commands.mute");
         setAllowsExtraArguments(true);
     }
 
@@ -37,10 +38,6 @@ public class MuteCMD extends CommandBase {
         }
 
         FancyPlayer target = targetArg.get(ctx);
-        if (!target.isOnline()) {
-            fp.sendMessage("The player " + target.getData().getUsername() + " is not online.");
-            return;
-        }
 
         String[] parts = ctx.getInputString().split(" ");
         StringBuilder reasonBuilder = new StringBuilder();

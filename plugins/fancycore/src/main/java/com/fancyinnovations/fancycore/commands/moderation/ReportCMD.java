@@ -13,14 +13,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class KickCMD extends CommandBase {
+public class ReportCMD extends CommandBase {
 
-    protected final RequiredArg<FancyPlayer> targetArg = this.withRequiredArg("target", "The player to kick", FancyCoreArgs.PLAYER);
-    protected final RequiredArg<List<String>> reasonArg = this.withListRequiredArg("reason", "The reason for the kick", ArgTypes.STRING);
+    protected final RequiredArg<FancyPlayer> targetArg = this.withRequiredArg("target", "The player to ban", FancyCoreArgs.PLAYER);
+    protected final RequiredArg<List<String>> reasonArg = this.withListRequiredArg("reason", "The reason for the ban", ArgTypes.STRING);
 
-    public KickCMD() {
-        super("kick", "Kick a player from the server");
-        requirePermission("fancycore.commands.kick");
+    public ReportCMD() {
+        super("report", "Reports a player to the staff team");
+        requirePermission("fancycore.commands.report");
         setAllowsExtraArguments(true);
     }
 
@@ -38,10 +38,6 @@ public class KickCMD extends CommandBase {
         }
 
         FancyPlayer target = targetArg.get(ctx);
-        if (!target.isOnline()) {
-            fp.sendMessage("The player " + target.getData().getUsername() + " is not online.");
-            return;
-        }
 
         String[] parts = ctx.getInputString().split(" ");
         StringBuilder reasonBuilder = new StringBuilder();
@@ -53,8 +49,9 @@ public class KickCMD extends CommandBase {
         }
         String reason = reasonBuilder.toString();
 
-        PunishmentService.get().kickPlayer(target, fp, reason);
+        PunishmentService.get().reportPlayer(target, fp, reason);
 
-        fp.sendMessage("Successfully kicked " + target.getData().getUsername() + " for: " + reason);
+        fp.sendMessage("Successfully reported " + target.getData().getUsername() + " for: " + reason);
+        fp.sendMessage("The staff team will review your report shortly.");
     }
 }

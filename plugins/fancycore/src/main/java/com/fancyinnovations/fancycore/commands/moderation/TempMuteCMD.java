@@ -4,6 +4,7 @@ import com.fancyinnovations.fancycore.api.moderation.PunishmentService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.fancyinnovations.fancycore.commands.arguments.FancyCoreArgs;
+import com.fancyinnovations.fancycore.utils.TimeUtils;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
@@ -13,14 +14,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class KickCMD extends CommandBase {
+public class TempMuteCMD extends CommandBase {
 
-    protected final RequiredArg<FancyPlayer> targetArg = this.withRequiredArg("target", "The player to kick", FancyCoreArgs.PLAYER);
-    protected final RequiredArg<List<String>> reasonArg = this.withListRequiredArg("reason", "The reason for the kick", ArgTypes.STRING);
+    protected final RequiredArg<FancyPlayer> targetArg = this.withRequiredArg("target", "The player to mute", FancyCoreArgs.PLAYER);
+    protected final RequiredArg<Long> durationArg = this.withRequiredArg("duration", "The duration of the mute", FancyCoreArgs.DURATION);
+    protected final RequiredArg<List<String>> reasonArg = this.withListRequiredArg("reason", "The reason for the mute", ArgTypes.STRING);
 
-    public KickCMD() {
-        super("kick", "Kick a player from the server");
-        requirePermission("fancycore.commands.kick");
+    public TempMuteCMD() {
+        super("tempmute", "Temporarily mute a player");
+        requirePermission("fancycore.commands.tempmute");
         setAllowsExtraArguments(true);
     }
 
@@ -38,14 +40,12 @@ public class KickCMD extends CommandBase {
         }
 
         FancyPlayer target = targetArg.get(ctx);
-        if (!target.isOnline()) {
-            fp.sendMessage("The player " + target.getData().getUsername() + " is not online.");
-            return;
-        }
+
+        long duration = durationArg.get(ctx);
 
         String[] parts = ctx.getInputString().split(" ");
         StringBuilder reasonBuilder = new StringBuilder();
-        for (int i = 2; i < parts.length; i++) {
+        for (int i = 3; i < parts.length; i++) {
             reasonBuilder.append(parts[i]);
             if (i < parts.length - 1) {
                 reasonBuilder.append(" ");
@@ -53,8 +53,8 @@ public class KickCMD extends CommandBase {
         }
         String reason = reasonBuilder.toString();
 
-        PunishmentService.get().kickPlayer(target, fp, reason);
+        PunishmentService.get().mutePlayer(target, fp, reason, duration);
 
-        fp.sendMessage("Successfully kicked " + target.getData().getUsername() + " for: " + reason);
+        fp.sendMessage("Successfully muted " + target.getData().getUsername() + " for " + TimeUtils.formatTime(duration) + ". Reason: " + reason);
     }
 }

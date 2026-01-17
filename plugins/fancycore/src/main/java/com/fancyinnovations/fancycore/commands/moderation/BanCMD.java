@@ -20,6 +20,7 @@ public class BanCMD extends CommandBase {
 
     public BanCMD() {
         super("ban", "Permanently bans a player from the server");
+        requirePermission("fancycore.commands.ban");
         setAllowsExtraArguments(true);
     }
 
@@ -37,10 +38,6 @@ public class BanCMD extends CommandBase {
         }
 
         FancyPlayer target = targetArg.get(ctx);
-        if (!target.isOnline()) {
-            fp.sendMessage("The player " + target.getData().getUsername() + " is not online.");
-            return;
-        }
 
         String[] parts = ctx.getInputString().split(" ");
         StringBuilder reasonBuilder = new StringBuilder();

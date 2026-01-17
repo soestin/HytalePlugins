@@ -16,6 +16,7 @@ import com.fancyinnovations.fancycore.main.SeedDefaultData;
 import com.fancyinnovations.fancycore.player.FancyPlayerDataImpl;
 import com.fancyinnovations.fancycore.player.FancyPlayerImpl;
 import com.fancyinnovations.fancycore.player.service.FancyPlayerServiceImpl;
+import com.fancyinnovations.fancycore.utils.TimeUtils;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
@@ -66,7 +67,12 @@ public class PlayerJoinListener {
 
         Punishment punishment = fp.isBanned();
         if (punishment != null) {
-            event.getPlayerRef().getPacketHandler().disconnect("You are banned from this server.\nReason: " + punishment.reason()); //TODO (I18N): replace with translated message (include ban reason and duration)
+            if (punishment.expiresAt() < 0) {
+                event.getPlayerRef().getPacketHandler().disconnect("You are banned from this server.\nReason: " + punishment.reason()); //TODO (I18N): replace with translated message (include ban reason and duration)
+            } else {
+                String duration = TimeUtils.formatTime(punishment.remainingDuration());
+                event.getPlayerRef().getPacketHandler().disconnect("You are banned from this server.\nReason: " + punishment.reason() + "\nRemaining duration: " + duration); //TODO (I18N): replace with translated message (include ban reason and duration)
+            }
             return;
         }
 

@@ -4,6 +4,7 @@ import com.fancyinnovations.fancycore.api.moderation.Punishment;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.main.FancyCorePlugin;
 import com.fancyinnovations.fancycore.player.service.FancyPlayerServiceImpl;
+import com.fancyinnovations.fancycore.utils.TimeUtils;
 import com.hypixel.hytale.server.core.event.events.player.PlayerChatEvent;
 
 public class PlayerChatListener {
@@ -16,7 +17,12 @@ public class PlayerChatListener {
         FancyPlayer fp = playerService.getByUUID(event.getSender().getUuid());
         Punishment punishment = fp.isMuted();
         if (punishment != null) {
-            fp.sendMessage("You are muted and cannot send messages."); //TODO (I18N): replace with translated message (include mute reason and duration)
+            if (punishment.expiresAt() < 0) {
+                fp.sendMessage("You are muted and cannot send messages.");
+            } else {
+                String duration = TimeUtils.formatTime(punishment.remainingDuration());
+                fp.sendMessage("You are still muted for " + duration + " and cannot send messages.");
+            }
             return;
         }
 
