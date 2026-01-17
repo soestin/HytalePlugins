@@ -360,8 +360,10 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
         CommandManager.get().register(new KickCMD());
         CommandManager.get().register(new MuteCMD());
         CommandManager.get().register(new TempMuteCMD());
+        CommandManager.get().register(new UnmuteCMD());
         CommandManager.get().register(new BanCMD());
         CommandManager.get().register(new TempBanCMD());
+        CommandManager.get().register(new UnbanCMD());
     }
 
     public void registerListeners() {
