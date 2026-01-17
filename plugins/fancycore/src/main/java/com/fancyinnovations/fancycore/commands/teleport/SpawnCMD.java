@@ -2,17 +2,16 @@ package com.fancyinnovations.fancycore.commands.teleport;
 
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
+import com.fancyinnovations.fancycore.api.teleport.Location;
 import com.fancyinnovations.fancycore.api.teleport.SpawnService;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Transform;
-import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
-import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
@@ -38,14 +37,10 @@ public class SpawnCMD extends AbstractPlayerCommand {
             return;
         }
 
-        Transform spawn = SpawnService.get().getSpawnLocation().toTransform();
-        TransformComponent transformComponent = store.getComponent(ref, TransformComponent.getComponentType());
+        Location location = SpawnService.get().getSpawnLocation();
+        World targetWorld = Universe.get().getWorld(location.worldName());
 
-        Vector3f previousBodyRotation = transformComponent.getRotation().clone();
-        Vector3f spawnRotation = spawn.getRotation().clone();
-        spawn.setRotation(new Vector3f(previousBodyRotation.getPitch(), spawnRotation.getYaw(), previousBodyRotation.getRoll()));
-
-        Teleport teleport = new Teleport(world, spawn).withHeadRotation(spawnRotation);
+        Teleport teleport = new Teleport(targetWorld, location.positionVec(), location.rotationVec());
         store.addComponent(ref, Teleport.getComponentType(), teleport);
 
         fp.sendMessage("Teleported to spawn point.");

@@ -4,7 +4,6 @@ import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
@@ -67,11 +66,6 @@ public class TeleportAllCMD extends CommandBase {
                 return;
             }
 
-            // Create transform from sender's location
-            Transform destinationTransform = new Transform(
-                    senderTransformComponent.getPosition().clone(),
-                    senderHeadRotationComponent.getRotation().clone()
-            );
             int count = 0;
 
             for (PlayerRef playerRef : playersToTeleport) {
@@ -94,7 +88,7 @@ public class TeleportAllCMD extends CommandBase {
                 }
 
                 // Create teleport component
-                Teleport teleport = new Teleport(senderWorld, destinationTransform);
+                Teleport teleport = new Teleport(senderWorld, senderTransformComponent.getPosition().clone(), senderHeadRotationComponent.getRotation().clone());
 
                 // Add teleport component to player
                 playerStore.addComponent(ref, Teleport.getComponentType(), teleport);

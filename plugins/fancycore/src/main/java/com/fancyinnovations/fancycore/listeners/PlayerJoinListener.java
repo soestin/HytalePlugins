@@ -18,8 +18,6 @@ import com.fancyinnovations.fancycore.player.FancyPlayerImpl;
 import com.fancyinnovations.fancycore.player.service.FancyPlayerServiceImpl;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Transform;
-import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.event.events.player.AddPlayerToWorldEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
@@ -120,14 +118,9 @@ public class PlayerJoinListener {
         if (FancyCorePlugin.get().getConfig().shouldJoinAtSpawn()) {
             Location spawnLocation = SpawnService.get().getSpawnLocation();
             if (spawnLocation != null) {
-                Transform spawn = SpawnService.get().getSpawnLocation().toTransform();
                 TransformComponent transformComponent = store.getComponent(ref, TransformComponent.getComponentType());
 
-                Vector3f previousBodyRotation = transformComponent.getRotation().clone();
-                Vector3f spawnRotation = spawn.getRotation().clone();
-                spawn.setRotation(new Vector3f(previousBodyRotation.getPitch(), spawnRotation.getYaw(), previousBodyRotation.getRoll()));
-
-                Teleport teleport = new Teleport(event.getPlayer().getWorld(), spawn).withHeadRotation(spawnRotation);
+                Teleport teleport = new Teleport(event.getPlayer().getWorld(), spawnLocation.positionVec(), spawnLocation.rotationVec());
                 store.addComponent(ref, Teleport.getComponentType(), teleport);
             }
         }

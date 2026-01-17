@@ -4,7 +4,6 @@ import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.OptionalArg;
@@ -118,14 +117,8 @@ public class TeleportCMD extends CommandBase {
                     return;
                 }
 
-                // Create transform from destination
-                Transform destinationTransform = new Transform(
-                        destinationTransformComponent.getPosition().clone(),
-                        destinationHeadRotationComponent.getRotation().clone()
-                );
-
                 // Create teleport component
-                Teleport teleport = new Teleport(destinationWorld, destinationTransform);
+                Teleport teleport = new Teleport(destinationWorld, destinationTransformComponent.getPosition().clone(), destinationHeadRotationComponent.getRotation().clone());
 
                 // Add teleport component to target player
                 targetStore.addComponent(targetRef, Teleport.getComponentType(), teleport);
@@ -153,12 +146,6 @@ public class TeleportCMD extends CommandBase {
                     return;
                 }
 
-                // Create transform from destination
-                Transform destinationTransform = new Transform(
-                        destinationTransformComponent.getPosition().clone(),
-                        destinationHeadRotationComponent.getRotation().clone()
-                );
-
                 // Now execute teleportation on the target world thread
                 targetWorld.execute(() -> {
                     // Save previous location for /back command (only if target is a player teleporting themselves)
@@ -170,7 +157,7 @@ public class TeleportCMD extends CommandBase {
                     }
 
                     // Create teleport component
-                    Teleport teleport = new Teleport(destinationWorld, destinationTransform);
+                    Teleport teleport = new Teleport(destinationWorld, destinationTransformComponent.getPosition().clone(), destinationHeadRotationComponent.getRotation().clone());
 
                     // Add teleport component to target player
                     targetStore.addComponent(targetRef, Teleport.getComponentType(), teleport);

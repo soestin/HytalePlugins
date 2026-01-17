@@ -4,7 +4,8 @@ import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Transform;
+import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
@@ -103,14 +104,9 @@ public class TeleportBackCMD extends CommandBase {
 
             // Execute teleportation on the target world thread
             targetWorld.execute(() -> {
-                // Create transform from previous location
-                Transform destinationTransform = new Transform(
-                        new com.hypixel.hytale.math.vector.Vector3d(x, y, z),
-                        new com.hypixel.hytale.math.vector.Vector3f((float) yaw.doubleValue(), (float) pitch.doubleValue(), 0.0f)
-                );
 
                 // Create teleport component
-                Teleport teleport = new Teleport(targetWorld, destinationTransform);
+                Teleport teleport = new Teleport(targetWorld, new Vector3d(x, y, z), new Vector3f((float) yaw.doubleValue(), (float) pitch.doubleValue(), 0.0f));
 
                 // Add teleport component to sender
                 senderStore.addComponent(senderRef, Teleport.getComponentType(), teleport);

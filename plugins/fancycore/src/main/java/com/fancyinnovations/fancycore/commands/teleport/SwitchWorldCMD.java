@@ -60,7 +60,7 @@ public class SwitchWorldCMD extends AbstractPlayerCommand {
         TeleportHistory teleportHistoryComponent = store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
         teleportHistoryComponent.append(world, previousPos, previousRotation, "World " + destinationWorld.getName());
 
-        store.addComponent(ref, Teleport.getComponentType(), new Teleport(destinationWorld, spawnPoint));
+        store.addComponent(ref, Teleport.getComponentType(), new Teleport(destinationWorld, spawnPoint.getPosition(), spawnPoint.getRotation()));
         Vector3d spawnPos = spawnPoint.getPosition();
 
         fp.sendMessage("Teleported to world " + destinationWorld.getName() + " at spawn point (" + spawnPos.getX() + ", " + spawnPos.getY() + ", " + spawnPos.getZ() + ").");

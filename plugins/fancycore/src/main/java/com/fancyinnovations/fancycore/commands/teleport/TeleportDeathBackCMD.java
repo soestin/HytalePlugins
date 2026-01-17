@@ -81,7 +81,7 @@ public class TeleportDeathBackCMD extends CommandBase {
             // Execute teleportation on the target world thread
             targetWorld.execute(() -> {
                 // Create teleport component from death position
-                Teleport teleport = new Teleport(targetWorld, deathTransform);
+                Teleport teleport = new Teleport(targetWorld, deathTransform.getPosition(), deathTransform.getRotation());
 
                 // Add teleport component to sender
                 senderStore.addComponent(senderRef, Teleport.getComponentType(), teleport);

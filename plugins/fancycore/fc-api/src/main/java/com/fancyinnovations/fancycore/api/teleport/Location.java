@@ -1,7 +1,7 @@
 package com.fancyinnovations.fancycore.api.teleport;
 
 import com.google.gson.annotations.SerializedName;
-import com.hypixel.hytale.math.vector.Transform;
+import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
 
 public record Location(
@@ -13,10 +13,11 @@ public record Location(
         float pitch
 ) {
 
-    public Transform toTransform() {
-        return new Transform(
-                x, y, z,
-                Vector3f.FORWARD.getYaw(), Vector3f.FORWARD.getPitch(), 0
-        );
+    public Vector3d positionVec() {
+        return new Vector3d(x, y, z);
+    }
+
+    public Vector3f rotationVec() {
+        return new Vector3f(pitch, yaw, 0f);
     }
 }
