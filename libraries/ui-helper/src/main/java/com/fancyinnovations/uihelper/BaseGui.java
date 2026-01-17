@@ -1,7 +1,5 @@
 package com.fancyinnovations.uihelper;
 
-import com.fancyinnovations.fancycore.ui.BaseGuiData;
-import com.fancyinnovations.fancycore.ui.UIBuilder;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -28,14 +26,13 @@ import javax.annotation.Nullable;
  * Base class for creating GUI pages with simplified API.
  *
  * Example usage:
- * <pre>
- * public class MyGui extends BaseGui<MyGuiData> {
+ * public class MyGui extends BaseGui&gt;MyGuiData> {
  *
  *     public MyGui(PlayerRef playerRef) {
  *         super(playerRef, MyGuiData.CODEC);
  *     }
  *
- *     @Override
+ *     {@literal @}Override
  *     protected void buildUI(UIBuilder ui, GuiContext ctx) {
  *         ui.page("Pages/MyPlugin/MyPage.ui")
  *           .text("#Title", "My Page")
@@ -46,7 +43,7 @@ import javax.annotation.Nullable;
  *           });
  *     }
  *
- *     @Override
+ *     {@literal @}Override
  *     protected void onAction(UIAction action, MyGuiData data, GuiContext ctx) {
  *         if (action.is("Save")) {
  *             // handle save
@@ -56,7 +53,6 @@ import javax.annotation.Nullable;
  *         }
  *     }
  * }
- * </pre>
  *
  * @param <T> The GUI data type
  */

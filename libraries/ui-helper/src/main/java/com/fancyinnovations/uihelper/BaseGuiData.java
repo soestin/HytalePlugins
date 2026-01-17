@@ -15,8 +15,8 @@ import javax.annotation.Nullable;
  * Example:
  * <pre>
  * public class MyGuiData extends BaseGuiData {
- *     public static final BuilderCodec<MyGuiData> CODEC = BaseGuiData.codec(MyGuiData.class, MyGuiData::new)
- *             .addField(new KeyedCodec<>("CustomField", Codec.STRING), (d, v) -> d.customField = v, d -> d.customField)
+ *     public static final BuilderCodec&gt;MyGuiData> CODEC = BaseGuiData.codec(MyGuiData.class, MyGuiData::new)
+ *             .addField(new KeyedCodec&gt;>("CustomField", Codec.STRING), (d, v) -> d.customField = v, d -> d.customField)
  *             .build();
  *
  *     public String customField;
