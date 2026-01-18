@@ -18,11 +18,12 @@ public class PlayerLeaveListener {
         if (fp == null) {
             return;
         }
-        fp.setPlayer(null);
 
-        long playtime = System.currentTimeMillis() - fp.getJoinedAt();
-        fp.getData().addPlayTime(playtime);
-        fp.setJoinedAt(-1);
+        if (fp.getJoinedAt() != -1) {
+            long playtime = System.currentTimeMillis() - fp.getJoinedAt();
+            fp.getData().addPlayTime(playtime);
+            fp.setJoinedAt(-1);
+        }
 
         FancyCore.get().getPlayerStorage().savePlayer(fp.getData());
 
@@ -31,6 +32,7 @@ public class PlayerLeaveListener {
             onlinePlayer.sendMessage(leaveMsg);
         }
 
+        fp.setPlayer(null);
         new PlayerLeftEvent(fp).fire();
     }
 }

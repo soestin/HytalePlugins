@@ -35,6 +35,13 @@ public interface FancyPlayer {
     void setPlayer(PlayerRef player);
 
     /**
+     * Gets the timestamp of when the player joined the server.
+     *
+     * @return the join timestamp in milliseconds.
+     */
+    long getJoinedAt();
+
+    /**
      * Checks if the player has the specified permission (checks player permissions and group permissions).
      *
      * @param permission the permission to check.

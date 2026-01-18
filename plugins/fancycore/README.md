@@ -162,6 +162,7 @@ Commands:
 
 Commands:
 - `/playerlist`
+- `/playtime [--target=?]`
 
 ### Plugin commands
 

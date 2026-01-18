@@ -38,6 +38,7 @@ import com.fancyinnovations.fancycore.commands.moderation.reports.ReportsCMD;
 import com.fancyinnovations.fancycore.commands.permissions.groups.GroupCMD;
 import com.fancyinnovations.fancycore.commands.permissions.player.PermissionsCMD;
 import com.fancyinnovations.fancycore.commands.player.PlayerListCMD;
+import com.fancyinnovations.fancycore.commands.player.PlaytimeCMD;
 import com.fancyinnovations.fancycore.commands.teleport.*;
 import com.fancyinnovations.fancycore.config.FancyCoreConfigImpl;
 import com.fancyinnovations.fancycore.economy.service.CurrencyServiceImpl;
@@ -330,6 +331,7 @@ public class FancyCorePlugin extends JavaPlugin implements FancyCore {
 
         // player
         CommandManager.get().register(new PlayerListCMD());
+        CommandManager.get().register(new PlaytimeCMD());
 
         // permission
         CommandManager.get().register(new PermissionsCMD());

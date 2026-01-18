@@ -59,7 +59,11 @@ public class FancyPlayerImpl implements FancyPlayer {
         this.data.setUsername(data.getUsername());
     }
 
+    @Override
     public long getJoinedAt() {
+        if (!isOnline()) {
+            return -1;
+        }
         return joinedAt;
     }
 

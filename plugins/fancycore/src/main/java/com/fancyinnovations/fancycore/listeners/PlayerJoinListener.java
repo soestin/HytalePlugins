@@ -77,7 +77,6 @@ public class PlayerJoinListener {
         }
 
         if (firstJoin) {
-            fp.setJoinedAt(System.currentTimeMillis());
             for (FancyPlayer onlinePlayer : playerService.getOnlinePlayers()) {
                 String firstJoinMsg = PlaceholderService.get().parse(fp, FancyCore.get().getConfig().getFirstJoinMessage());
                 onlinePlayer.sendMessage(firstJoinMsg);
@@ -107,6 +106,8 @@ public class PlayerJoinListener {
                 onlinePlayer.sendMessage(joinMsg);
             }
         }
+
+        fp.setJoinedAt(System.currentTimeMillis());
 
         new PlayerJoinedEvent(fp, firstJoin).fire();
     }
