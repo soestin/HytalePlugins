@@ -1,6 +1,7 @@
 package com.fancyinnovations.fancycore.api.permissions;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface Group {
@@ -46,6 +47,30 @@ public interface Group {
     void setPermission(String permission, boolean enabled);
 
     void removePermission(String permission);
+
+    Map<String, Object> getMetadata();
+
+    void setMetadata(Map<String, Object> metadata);
+
+    /**
+     * Gets the metadata value for the specified key directly from this group.
+     *
+     * @param key Metadata key
+     * @return Metadata value or null if not found
+     */
+    Object getMetadataValue(String key);
+
+    /**
+     * Gets the metadata value for the specified key, checking parent groups if not found in this group.
+     *
+     * @param key Metadata key
+     * @return Metadata value or null if not found
+     */
+    Object getMetadataValueInherited(String key);
+
+    void setMetadataValue(String key, Object value);
+
+    void removeMetadataValue(String key);
 
     List<UUID> getMembers();
 

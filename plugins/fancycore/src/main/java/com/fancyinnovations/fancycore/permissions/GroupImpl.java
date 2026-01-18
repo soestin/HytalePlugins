@@ -15,6 +15,7 @@ public class GroupImpl implements Group {
     private String prefix;
     private String suffix;
     private List<Permission> permissions;
+    private Map<String, Object> metadata;
 
     public GroupImpl(
             String name,
@@ -23,13 +24,16 @@ public class GroupImpl implements Group {
             String prefix,
             String suffix,
             List<Permission> permissions,
-            Set<UUID> members) {
+            Map<String, Object> metadata,
+            Set<UUID> members
+    ) {
         this.name = name;
         this.weight = weight;
         this.parents = new HashSet<>(parents);
         this.prefix = prefix;
         this.suffix = suffix;
         this.permissions = new ArrayList<>(permissions);
+        this.metadata = new HashMap<>(metadata);
         this.members = new HashSet<>(members);
     }
 
@@ -154,6 +158,51 @@ public class GroupImpl implements Group {
     @Override
     public void removePermission(String permission) {
         this.permissions.removeIf(perm -> perm.getPermission().equalsIgnoreCase(permission));
+    }
+
+    @Override
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    @Override
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
+    }
+
+    @Override
+    public Object getMetadataValue(String key) {
+        return this.metadata.get(key);
+    }
+
+    @Override
+    public Object getMetadataValueInherited(String key) {
+        Object value = this.metadata.get(key);
+        if (value != null) {
+            return value;
+        }
+
+        for (String parentName : parents) {
+            Group parentGroup = FancyCore.get().getPermissionService().getGroup(parentName);
+            if (parentGroup != null) {
+                value = parentGroup.getMetadataValueInherited(key);
+                if (value != null) {
+                    return value;
+                }
+            }
+        }
+
+        return null; // not found
+    }
+
+    @Override
+    public void setMetadataValue(String key, Object value) {
+        this.metadata.put(key, value);
+    }
+
+    @Override
+    public void removeMetadataValue(String key) {
+        this.metadata.remove(key);
     }
 
     @Override

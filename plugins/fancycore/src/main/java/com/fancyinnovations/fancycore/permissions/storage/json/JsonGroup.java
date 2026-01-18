@@ -5,6 +5,7 @@ import com.fancyinnovations.fancycore.api.permissions.Permission;
 import com.fancyinnovations.fancycore.permissions.GroupImpl;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public record JsonGroup (
         String name,
@@ -13,6 +14,7 @@ public record JsonGroup (
         String prefix,
         String suffix,
         List<JsonPermission> permissions,
+        Map<String, Object> metadata,
         List<String> members
 ){
 
@@ -32,6 +34,7 @@ public record JsonGroup (
                 group.getPrefix(),
                 group.getSuffix(),
                 jsonPermissions,
+                group.getMetadata(),
                 memberStrings
         );
     }
@@ -56,6 +59,11 @@ public record JsonGroup (
             }
         }
 
+        Map<String, Object> metadataMap = new ConcurrentHashMap<>();
+        if (metadata != null) {
+            metadataMap.putAll(metadata);
+        }
+
         return new GroupImpl(
                 this.name,
                 this.weight,
@@ -63,6 +71,7 @@ public record JsonGroup (
                 this.prefix,
                 this.suffix,
                 perms,
+                metadataMap,
                 memberUUIDs
         );
     }

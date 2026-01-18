@@ -14,6 +14,8 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SeedDefaultData {
 
@@ -53,6 +55,10 @@ public class SeedDefaultData {
                     new PermissionImpl("fancycore.commands.teleportaccept", true),
                     new PermissionImpl("fancycore.commands.teleportdeny", true)
             ),
+            Map.of(
+                    "max_homes", 2,
+                    "max_backpacks", 1
+            ),
             new HashSet<>()
     );
 
@@ -86,6 +92,7 @@ public class SeedDefaultData {
                 List.of(
                         new PermissionImpl("*")
                 ),
+                new ConcurrentHashMap<>(),
                 new HashSet<>()
         );
         PermissionService.get().addGroup(moderatorGroup);
@@ -99,6 +106,7 @@ public class SeedDefaultData {
                 List.of(
                         new PermissionImpl("*")
                 ),
+                new ConcurrentHashMap<>(),
                 new HashSet<>()
         );
         PermissionService.get().addGroup(adminGroup);
@@ -112,6 +120,7 @@ public class SeedDefaultData {
                 List.of(
                         new PermissionImpl("*")
                 ),
+                new ConcurrentHashMap<>(),
                 new HashSet<>()
         );
         PermissionService.get().addGroup(ownerGroup);

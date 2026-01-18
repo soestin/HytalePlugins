@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GroupCreateCMD extends CommandBase {
 
@@ -51,6 +52,7 @@ public class GroupCreateCMD extends CommandBase {
                 "",
                 "",
                 new ArrayList<>(),
+                new ConcurrentHashMap<>(),
                 new HashSet<>()
         );
 
