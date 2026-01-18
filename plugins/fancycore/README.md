@@ -117,6 +117,7 @@ Commands:
 - `/unignore <target>`
 - `/togglemessages`
 - `/chatcolor set <color code>`
+- `/broadcast <message>`
 
 ### Inventory System
 
