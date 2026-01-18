@@ -21,6 +21,7 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
     private final List<String> groups;
     private final Map<String, Object> customData;
     private final Map<String, Home> homes;
+    private final Map<String, Long> kitCooldowns;
     private UUID uuid;
     private String username;
     private String nickname;
@@ -48,6 +49,7 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
         this.firstLoginTime = System.currentTimeMillis();
         this.playTime = 0L;
         this.homes = new ConcurrentHashMap<>();
+        this.kitCooldowns = new ConcurrentHashMap<>();
         this.customData = new ConcurrentHashMap<>();
 
         this.isDirty = true;
@@ -66,6 +68,7 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
             long firstLoginTime,
             long playTime,
             List<Home> homes,
+            Map<String, Long> kitCooldowns,
             Map<String, Object> customData
     ) {
         this.uuid = uuid;
@@ -84,6 +87,7 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
         for (Home home : homes) {
             this.homes.put(home.name(), home);
         }
+        this.kitCooldowns = new ConcurrentHashMap<>(kitCooldowns);
         this.isDirty = false;
     }
 
@@ -298,6 +302,21 @@ public class FancyPlayerDataImpl implements FancyPlayerData {
     @Override
     public void removeHome(String homeName) {
         this.homes.remove(homeName);
+    }
+
+    @Override
+    public long getLastTimeUsedKit(String kitName) {
+        return kitCooldowns.getOrDefault(kitName, -1L);
+    }
+
+    @Override
+    public void setLastTimeUsedKit(String kitName, long timestamp) {
+        kitCooldowns.put(kitName, timestamp);
+    }
+
+    @Override
+    public Map<String, Long> getKitCooldowns() {
+        return kitCooldowns;
     }
 
     @Override

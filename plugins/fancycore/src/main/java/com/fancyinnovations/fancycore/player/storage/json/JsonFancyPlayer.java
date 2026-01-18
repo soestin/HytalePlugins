@@ -23,6 +23,7 @@ public record JsonFancyPlayer(
         @SerializedName("first_login_time") long firstLoginTime,
         @SerializedName("play_time") long playTime,
         List<Home> homes,
+        @SerializedName("kit_cooldowns") Map<String, Long> kitCooldowns,
         @SerializedName("custom_data") Map<String, Object> customData
 ) {
 
@@ -40,7 +41,6 @@ public record JsonFancyPlayer(
                 .toList();
 
         Map<String, Double> balances = new HashMap<>();
-        //hytale.system.command.help
         for (var entry : player.getBalances().entrySet()) {
             balances.put(entry.getKey().name(), entry.getValue());
         }
@@ -58,6 +58,7 @@ public record JsonFancyPlayer(
                 player.getFirstLoginTime(),
                 player.getPlayTime(),
                 player.getHomes(),
+                player.getKitCooldowns(),
                 player.getCustomData()
         );
     }
@@ -110,6 +111,7 @@ public record JsonFancyPlayer(
                 firstLoginTime,
                 playTime,
                 homes,
+                kitCooldowns,
                 customData
         );
     }

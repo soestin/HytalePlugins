@@ -4,10 +4,12 @@ import com.fancyinnovations.fancycore.api.inventory.Kit;
 import com.fancyinnovations.fancycore.api.inventory.KitsService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
+import com.fancyinnovations.fancycore.commands.arguments.FancyCoreArgs;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
+import com.hypixel.hytale.server.core.command.system.arguments.system.OptionalArg;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
@@ -25,6 +27,7 @@ import java.util.List;
 public class CreateKitCMD extends AbstractPlayerCommand {
 
     protected final RequiredArg<String> nameArg = this.withRequiredArg("name", "name for the new kit", ArgTypes.STRING);
+    protected final OptionalArg<Long> cooldownArg = this.withOptionalArg("cooldown", "cooldown for the kit", FancyCoreArgs.DURATION);
 
     public CreateKitCMD() {
         super("createkit", "Creates a new kit with the specified name (note: it contains all items in your inventory)");
@@ -50,6 +53,8 @@ public class CreateKitCMD extends AbstractPlayerCommand {
             return;
         }
 
+        long cooldown = cooldownArg.provided(ctx) ? cooldownArg.get(ctx) : -1;
+
         Player player = ref.getStore().getComponent(ref, Player.getComponentType());
         if (player == null) {
             fp.sendMessage("You are not an player");
@@ -67,7 +72,7 @@ public class CreateKitCMD extends AbstractPlayerCommand {
             items.add(itemStack);
         }
 
-        Kit kit = new Kit(name, name, name);
+        Kit kit = new Kit(name, name, name, cooldown);
 
         KitsService.get().createKit(kit, items);
 

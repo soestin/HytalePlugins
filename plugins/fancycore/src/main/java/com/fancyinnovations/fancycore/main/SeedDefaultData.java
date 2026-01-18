@@ -139,7 +139,8 @@ public class SeedDefaultData {
         Kit starterKit = new Kit(
                 "starter",
                 "Starter Kit",
-                "A kit for new players."
+                "A kit for new players.",
+                24 * 60 * 60 * 1000 // 24 hours
         );
         List<ItemStack> starterKitItems = List.of(
                 new ItemStack("Bench_WorkBench", 1),

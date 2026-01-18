@@ -83,6 +83,12 @@ public interface FancyPlayerData {
 
     void removeHome(String homeName);
 
+    long getLastTimeUsedKit(String kitName);
+
+    void setLastTimeUsedKit(String kitName, long timestamp);
+
+    Map<String, Long> getKitCooldowns();
+
     Map<String, Object> getCustomData();
 
     <T> void setCustomData(String key, T value);

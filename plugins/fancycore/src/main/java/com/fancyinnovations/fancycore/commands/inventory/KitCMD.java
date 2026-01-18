@@ -5,6 +5,7 @@ import com.fancyinnovations.fancycore.api.inventory.KitsService;
 import com.fancyinnovations.fancycore.api.player.FancyPlayer;
 import com.fancyinnovations.fancycore.api.player.FancyPlayerService;
 import com.fancyinnovations.fancycore.commands.arguments.FancyCoreArgs;
+import com.fancyinnovations.fancycore.utils.TimeUtils;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
@@ -46,6 +47,18 @@ public class KitCMD extends AbstractPlayerCommand {
         if (!PermissionsModule.get().hasPermission(fp.getData().getUUID(), "fancycore.kits." + kit.name())) {
             fp.sendMessage("You do not have permission to use this kit.");
             return;
+        }
+
+        if (kit.cooldown() > 0 && !PermissionsModule.get().hasPermission(fp.getData().getUUID(), "fancycore.kits.bypasscooldown")) {
+            long lastTimeUsedKit = fp.getData().getLastTimeUsedKit(kit.name());
+            long timeSinceLastUse = System.currentTimeMillis() - lastTimeUsedKit;
+            if (timeSinceLastUse < kit.cooldown()) {
+                long timeLeft = kit.cooldown() - timeSinceLastUse;
+                fp.sendMessage("You must wait " + TimeUtils.formatTime(timeLeft) + " before using this kit again.");
+                return;
+            }
+
+            fp.getData().setLastTimeUsedKit(kit.name(), System.currentTimeMillis());
         }
 
         KitsService.get().giveKitToPlayer(kit, fp);
