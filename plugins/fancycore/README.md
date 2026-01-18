@@ -169,3 +169,4 @@ Commands:
 Commands:
 - `/fancycore version`
 - `/fancycore update`
+- `/fancycore reloadconfig`

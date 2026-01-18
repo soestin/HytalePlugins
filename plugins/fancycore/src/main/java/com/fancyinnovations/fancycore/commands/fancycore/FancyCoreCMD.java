@@ -10,5 +10,6 @@ public class FancyCoreCMD extends AbstractCommandCollection {
 
         addSubCommand(new FancyCoreVersionCMD());
         addSubCommand(new FancyCoreUpdateCMD());
+        addSubCommand(new FancyCoreReloadConfigCMD());
     }
 }
